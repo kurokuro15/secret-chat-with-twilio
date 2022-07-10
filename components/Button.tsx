@@ -17,7 +17,6 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = 'primary', className, ...other }, ref) => (
     <button
-      type="submit"
       className={classNames(baseClasses, variantClasses[variant], className)}
       ref={ref}
       {...other}
