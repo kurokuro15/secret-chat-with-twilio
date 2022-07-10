@@ -1,8 +1,7 @@
 import classNames from 'classnames';
-import React from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 
-interface InputProps
-  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isInvalid?: boolean;
   disabled?: boolean;
 }
@@ -14,7 +13,7 @@ const disabledClasses = 'bg-gray-100 text-gray-700 cursor-not-allowed';
 
 const invalidClasses = 'border-red-400 text-red-500 focus:border-red-400 focus:ring-red-400';
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { type = 'text', disabled = false, isInvalid = false, ...other } = props;
 
   const className = classNames(baseClasses, {
