@@ -10,7 +10,7 @@ function Login() {
 
       <LoginForm />
 
-      <Link href="/login">
+      <Link href="/signup">
         <a>¿No tienes cuenta? ¡Regístrate ahora!</a>
       </Link>
     </main>
