@@ -4,11 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from './Button';
 import Input from './forms/Input';
 import InputFeedback from './forms/InputFeedback';
-
-interface Credentials {
-  email: string;
-  password: string;
-}
+import { Credentials } from 'types/api';
+import useAuth from 'hooks/useAuth';
 
 const schema = object({
   email: string().email().required(),
@@ -16,15 +13,18 @@ const schema = object({
 });
 
 function LoginForm() {
+  const { signIn } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors, touchedFields }
   } = useForm<Credentials>({ resolver: yupResolver(schema) });
 
-  function onSubmit(data: Credentials) {
-    console.log(data);
+  async function onSubmit(credentials: Credentials) {
+    console.log(await signIn(credentials));
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label className="block mb-3">
