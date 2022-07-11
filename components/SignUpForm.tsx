@@ -30,8 +30,6 @@ function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
   async function onSubmit(credentials: Credentials) {
     const { error, ...rest } = await signUp(credentials);
 
-    console.log(rest);
-
     if (!error) {
       onSuccess();
       return;
