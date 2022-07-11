@@ -1,14 +1,21 @@
 import { ApiError } from '@supabase/supabase-js';
 import AppLogo from 'components/icons/AppLogo';
 import SignUpForm from 'components/SignUpForm';
+import { useNotificationsCtx } from 'contexts/NotificationsCtx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 function SignUp() {
   const router = useRouter();
+  const { addNotification } = useNotificationsCtx();
 
   function onSuccess() {
     router.push('/login');
+
+    addNotification({
+      message: 'Verifica tu correo electrónico para poder iniciar sesión',
+      delay: -1
+    });
   }
 
   function onError(error: ApiError) {
