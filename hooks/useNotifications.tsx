@@ -1,8 +1,9 @@
+import { variants } from 'components/Notification';
 import { useState } from 'react';
 
 export interface NotificationOptions {
   message: string;
-  variant?: string;
+  variant?: keyof typeof variants;
   delay?: number;
   onClose?: () => void;
 }
