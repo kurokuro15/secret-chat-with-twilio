@@ -3,3 +3,8 @@ export interface ApiError {
   message: string;
   [key: string]: any;
 }
+
+export interface Credentials {
+  email: string;
+  password: string;
+}
