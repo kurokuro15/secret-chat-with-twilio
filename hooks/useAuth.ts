@@ -21,12 +21,7 @@ function useAuth() {
   }
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      const newUser = supabase.auth.user();
-      if (newUser) {
-        await setAuthToken(event, session);
-      }
-    });
+    supabase.auth.onAuthStateChange(async (event, session) => await setAuthToken(event, session));
   }, []);
 
   return {
