@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import setAuthToken from 'services/setAuthToken';
 import { Credentials } from 'types/api';
 import { supabase } from 'utils/supabaseClient';
 
@@ -13,6 +15,15 @@ function useAuth() {
   function signOut() {
     return supabase.auth.signOut();
   }
+
+  useEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      const newUser = supabase.auth.user();
+      if (newUser) {
+        await setAuthToken(event, session);
+      }
+    });
+  }, []);
 
   return {
     signIn,
