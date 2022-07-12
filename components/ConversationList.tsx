@@ -7,7 +7,7 @@ interface ConversationListProps {
 
 function ConversationList({ conversations }: ConversationListProps) {
   return (
-    <div className="w-full h-full flex flex-col divide-y divide-purple-400">
+    <div className="w-full flex flex-col">
       {conversations.map((conversation) => (
         <ConversationItem
           key={conversation.uniqueName}
