@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import React from 'react';
 
 interface IconProps extends React.HTMLAttributes<SVGElement> {
@@ -9,7 +9,7 @@ function CloseIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classNames('h-6 w-6', className)}
+      className={twMerge('h-6 w-6', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

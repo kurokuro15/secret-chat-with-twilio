@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { forwardRef, InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -16,10 +16,7 @@ const invalidClasses = 'border-red-400 text-red-500 focus:border-red-400 focus:r
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { type = 'text', disabled = false, isInvalid = false, ...other } = props;
 
-  const className = classNames(baseClasses, {
-    [disabledClasses]: disabled,
-    [invalidClasses]: isInvalid
-  });
+  const className = twMerge(baseClasses, disabled && disabledClasses, isInvalid && invalidClasses);
 
   return <input type={type} className={className} ref={ref} disabled={disabled} {...other} />;
 });

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { ReactNode } from 'react';
 
 interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -13,7 +13,5 @@ const variants = {
 };
 
 export default function Alert({ children, variant = 'primary', className }: AlertProps) {
-  return (
-    <div className={classNames('rounded-md p-3', variants[variant], className)}>{children}</div>
-  );
+  return <div className={twMerge('rounded-md p-3', variants[variant], className)}>{children}</div>;
 }

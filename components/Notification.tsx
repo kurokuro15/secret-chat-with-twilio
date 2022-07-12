@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import CloseIcon from './icons/CloseIcon';
 
 interface NotificationProps {
@@ -17,7 +17,7 @@ export const variants = {
 
 function Notification({ variant = 'primary', message, close }: NotificationProps) {
   return (
-    <div className={classNames(baseClasses, variants[variant])}>
+    <div className={twMerge(baseClasses, variants[variant])}>
       <div className="absolute right-1 top-1 cursor-pointer hover:scale-110" onClick={close}>
         <CloseIcon className="w-4 h-4" />
       </div>

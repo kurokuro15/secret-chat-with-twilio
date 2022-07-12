@@ -1,10 +1,10 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 
 function AppLogo({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classNames('h-12 w-12 text-purple-700', className)}
+      className={twMerge('h-12 w-12 text-purple-700', className)}
       viewBox="0 0 20 20"
       fill="currentColor"
     >

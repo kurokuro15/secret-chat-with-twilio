@@ -1,11 +1,11 @@
-import classNames from 'classnames';
+import { twMerge } from 'tailwind-merge';
 import { IconProps } from './IconProps';
 
-export default function PlusIcon({ className, size = 6 }: IconProps) {
+export default function PlusIcon({ className }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classNames(`h-${size} w-${size}`, className)}
+      className={twMerge('h-6 w-6', className)}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
