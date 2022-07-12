@@ -7,6 +7,9 @@ import InputFeedback from './forms/InputFeedback';
 import { Credentials } from 'types/api';
 import useAuth from 'hooks/useAuth';
 import { ApiError } from '@supabase/supabase-js';
+import { useState } from 'react';
+import Alert from './Alert';
+import Spinner from './Spinner';
 
 const schema = object({
   email: string().email().required(),
@@ -20,15 +23,16 @@ const schema = object({
 
 function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
   const { signUp } = useAuth();
+  const [error, setError] = useState<ApiError>();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields }
+    formState: { errors, touchedFields, isSubmitting }
   } = useForm<Credentials>({ resolver: yupResolver(schema) });
 
   async function onSubmit(credentials: Credentials) {
-    const { error, ...rest } = await signUp(credentials);
+    const { error } = await signUp(credentials);
 
     if (!error) {
       onSuccess();
@@ -36,10 +40,17 @@ function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
     }
 
     onError(error);
+    setError(error);
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {error && (
+        <Alert variant="danger" className="mb-3">
+          {error.message}
+        </Alert>
+      )}
+
       <label className="block mb-3">
         <div className="mb-1">Correo electrónico</div>
         <Input {...register('email')} isInvalid={!!touchedFields.email && !!errors.email} />
@@ -56,7 +67,9 @@ function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
         <InputFeedback>{errors.password?.message}</InputFeedback>
       </label>
 
-      <Button className="block w-full">¡Registrarse!</Button>
+      <Button className="flex items-center gap-2 justify-center w-full" disabled={isSubmitting}>
+        {isSubmitting && <Spinner />} ¡Registrarse!
+      </Button>
     </form>
   );
 }
