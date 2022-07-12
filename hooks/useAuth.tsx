@@ -17,7 +17,9 @@ function useAuth() {
   return {
     signIn,
     signUp,
-    signOut
+    signOut,
+    jwt: supabase.auth.session()?.access_token,
+    user: supabase.auth.user()
   };
 }
 
