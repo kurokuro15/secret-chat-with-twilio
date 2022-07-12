@@ -1,9 +1,11 @@
 import AppLogo from 'components/icons/AppLogo';
 import LoginForm from 'components/LoginForm';
+import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { supabase } from 'utils/supabaseClient';
 
-function Login() {
+const Login: NextPage = () => {
   const router = useRouter();
 
   return (
@@ -18,6 +20,25 @@ function Login() {
       </Link>
     </main>
   );
-}
+};
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { error } = await supabase.auth.api.getUserByCookie(req);
+
+  console.log(error);
+
+  if (!error) {
+    return {
+      redirect: {
+        destination: '/chat',
+        permanent: false
+      }
+    };
+  }
+
+  return {
+    props: {}
+  };
+};
