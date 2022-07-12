@@ -27,8 +27,6 @@ export default Login;
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { error } = await supabase.auth.api.getUserByCookie(req);
 
-  console.log(error);
-
   if (!error) {
     return {
       redirect: {
