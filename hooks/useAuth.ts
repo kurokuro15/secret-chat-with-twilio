@@ -1,19 +1,23 @@
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import setAuthToken from 'services/setAuthToken';
 import { Credentials } from 'types/api';
 import { supabase } from 'utils/supabaseClient';
 
 function useAuth() {
-  function signIn(credentials: Credentials) {
-    return supabase.auth.signIn(credentials);
+  const router = useRouter();
+
+  async function signIn(credentials: Credentials) {
+    return await supabase.auth.signIn(credentials);
   }
 
-  function signUp(credentials: Credentials) {
-    return supabase.auth.signUp(credentials);
+  async function signUp(credentials: Credentials) {
+    return await supabase.auth.signUp(credentials);
   }
 
-  function signOut() {
-    return supabase.auth.signOut();
+  async function signOut() {
+    await supabase.auth.signOut();
+    router.push('/login');
   }
 
   useEffect(() => {
