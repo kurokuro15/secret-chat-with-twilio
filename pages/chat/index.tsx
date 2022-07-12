@@ -5,14 +5,21 @@ import perfilTemp from '../../public/photo.jpg';
 import ConversationList from 'components/ConversationList';
 import useConversations from 'hooks/useConversations';
 import ConversationsHeader from 'components/ConversationsHeader';
+import { withAuth } from 'utils/withAuth';
+import Button from 'components/Button';
+import { useAuthCtx } from 'contexts/AuthCtx';
 
 const Chat: NextPage = () => {
   const { conversations } = useConversations();
+  const { signOut } = useAuthCtx();
   return (
     <div className="flex w-full h-full">
       <div className="w-full max-w-sm border-r border-r-purple-400">
         <ConversationsHeader />
         <ConversationList conversations={conversations} />
+        <Button onClick={() => signOut()} className="mx-auto mt-3 block">
+          Cerrar sesión
+        </Button>
       </div>
 
       <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
@@ -54,3 +61,5 @@ const Chat: NextPage = () => {
 };
 
 export default Chat;
+
+export const getServerSideProps = withAuth();
