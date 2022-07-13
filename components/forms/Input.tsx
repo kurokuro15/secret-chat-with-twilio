@@ -14,11 +14,22 @@ const disabledClasses = 'bg-gray-100 text-gray-700 cursor-not-allowed';
 const invalidClasses = 'border-red-400 text-red-500 focus:border-red-400 focus:ring-red-400';
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { type = 'text', disabled = false, isInvalid = false, ...other } = props;
+  const { type = 'text', disabled = false, isInvalid = false, className, ...other } = props;
 
-  const className = twMerge(baseClasses, disabled && disabledClasses, isInvalid && invalidClasses);
-
-  return <input type={type} className={className} ref={ref} disabled={disabled} {...other} />;
+  return (
+    <input
+      type={type}
+      className={twMerge(
+        baseClasses,
+        disabled && disabledClasses,
+        isInvalid && invalidClasses,
+        className
+      )}
+      ref={ref}
+      disabled={disabled}
+      {...other}
+    />
+  );
 });
 
 Input.displayName = 'Input';
