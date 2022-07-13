@@ -5,7 +5,7 @@ import { useNotificationsCtx } from 'contexts/NotificationsCtx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-function SignUp() {
+export default function SignUp() {
   const router = useRouter();
   const { addNotification } = useNotificationsCtx();
 
@@ -35,5 +35,3 @@ function SignUp() {
     </main>
   );
 }
-
-export default SignUp;
