@@ -1,13 +1,17 @@
 import { twMerge } from 'tailwind-merge';
 import { forwardRef, ButtonHTMLAttributes } from 'react';
 
-const baseClasses = 'px-4 py-2 mb-2 disabled:cursor-not-allowed';
+const baseClasses = 'px-4 py-2 disabled:cursor-not-allowed transition-all';
 
 const variantClasses = {
   primary:
     'text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-md disabled:bg-purple-500',
   'outline-primary':
-    'text-purple-800 bg-white border border-purple-800 hover:bg-purple-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-md disabled:bg-black/10 disabled:text-purple-600 disabled:border-purple-600'
+    'text-purple-800 bg-white border border-purple-800 hover:bg-purple-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-md disabled:bg-black/10 disabled:text-purple-600 disabled:border-purple-600',
+  'transparent-primary':
+    'p-1 text-purple-800 hover:bg-purple-100 focus:outline-none focus:ring-4 focus:ring-purple-300 disabled:bg-black/10',
+  'transparent-danger':
+    'p-1 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-300 disabled:bg-black/10'
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

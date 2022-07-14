@@ -3,6 +3,7 @@ import imgPlaceholder from 'public/photo.jpg';
 import PlusIcon from './icons/PlusIcon';
 import { Panel } from './ChatSidebar';
 import CloseIcon from './icons/CloseIcon';
+import Button from './Button';
 
 function ConversationsHeader({
   selectPanel,
@@ -11,21 +12,23 @@ function ConversationsHeader({
   selectPanel: (panel: Panel) => void;
   selectedPanel: Panel;
 }) {
-  const Button =
+  const actionButton =
     selectedPanel === 'createConversation' ? (
-      <button
-        className="transition-all rounded-full p-1 text-red-500 hover:bg-red-100"
+      <Button
+        variant="transparent-danger"
+        className="rounded-full"
         onClick={() => selectPanel('conversations')}
       >
         <CloseIcon className="w-8 h-8 " />
-      </button>
+      </Button>
     ) : (
-      <button
-        className="transition-all rounded-full p-1 hover:bg-purple-100"
+      <Button
+        variant="transparent-primary"
+        className="rounded-full"
         onClick={() => selectPanel('createConversation')}
       >
         <PlusIcon className="w-8 h-8" />
-      </button>
+      </Button>
     );
 
   return (
@@ -34,7 +37,7 @@ function ConversationsHeader({
       <div>
         <p className="font-bold">Conversaciones</p>
       </div>
-      {Button}
+      {actionButton}
     </div>
   );
 }
