@@ -72,10 +72,25 @@ function useConversations() {
     isFirstRun.current = false;
   }, [jwt, conversationsClient]);
 
-  async function createConversation(options: CreateConversationOptions) {
-    const conversation = await conversationsClient?.createConversation(options);
-    conversation?.join();
-    return conversation;
+  async function createConversation(options: CreateConversationOptions, participants: string[]) {
+    try {
+      const conversation = await conversationsClient?.createConversation(options);
+      if (!conversation) return;
+
+      await conversation.join();
+
+      participants.forEach(async (participant) => {
+        try {
+          await conversation.add(participant); // No funciona con usuarios que no existan... :(
+        } catch (error) {
+          console.log(error); // TODO
+        }
+      });
+
+      return conversation;
+    } catch (error) {
+      console.log(error); // TODO
+    }
   }
 
   return { conversations, conversationsClient, status, createConversation };
