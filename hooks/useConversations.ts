@@ -1,10 +1,15 @@
-import { Client as TwilioClient, Conversation } from '@twilio/conversations';
+import {
+  Client as TwilioClient,
+  Conversation,
+  CreateConversationOptions
+} from '@twilio/conversations';
 import { useAuthCtx } from 'contexts/AuthCtx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 
 function useConversations() {
-  const [chatClient, setChatClient] = useState<TwilioClient>();
+  const isFirstRun = useRef(true);
+  const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const { jwt } = useAuthCtx();
   const [status, setStatus] = useState({
@@ -14,73 +19,66 @@ function useConversations() {
 
   // Inicializar el cliente de twilio
   useEffect(() => {
-    if (!jwt) return;
+    if (!isFirstRun.current) return;
 
-    if (chatClient === undefined) {
-      getChatToken(jwt)
-        .then((res) => res.json())
-        .then((data) => {
-          setChatClient(new TwilioClient(data.chatToken));
-        });
+    async function initClient() {
+      if (!jwt || conversationsClient) return;
+
+      const accessToken = (await (await getChatToken(jwt)).json()).chatToken;
+      const client = new TwilioClient(accessToken);
+
+      client.on('connectionStateChanged', (state) => {
+        if (state === 'connecting')
+          setStatus({
+            statusString: 'Conectando…',
+            status: 'default'
+          });
+        if (state === 'connected') {
+          setStatus({
+            statusString: 'Estás en línea',
+            status: 'success'
+          });
+        }
+        if (state === 'disconnecting')
+          setStatus({
+            statusString: 'Desconectando…',
+            status: 'default'
+          });
+        if (state === 'disconnected')
+          setStatus({
+            statusString: 'Desconectado',
+            status: 'warning'
+          });
+        if (state === 'denied')
+          setStatus({
+            statusString: 'No se pudo conectar.',
+            status: 'error'
+          });
+      });
+
+      client.on('conversationJoined', (conversation) => {
+        setConversations((prev) => [conversation, ...prev]);
+      });
+
+      client.on('conversationLeft', (conversationLeft) => {
+        setConversations((prev) =>
+          prev.filter((conversation) => conversation !== conversationLeft)
+        );
+      });
+
+      setConversationsClient(client);
     }
-  }, [jwt, chatClient]);
+    initClient();
+    isFirstRun.current = false;
+  }, [jwt, conversationsClient]);
 
-  // Agregar los listeners 'necesarios'
-  useEffect(() => {
-    chatClient?.on('connectionStateChanged', (state) => {
-      if (state === 'connecting')
-        setStatus({
-          statusString: 'Connecting to Twilio…',
-          status: 'default'
-        });
-      if (state === 'connected') {
-        setStatus({
-          statusString: 'You are connected.',
-          status: 'success'
-        });
-        getConversations(chatClient).then(setConversations);
-      }
-      if (state === 'disconnecting')
-        setStatus({
-          statusString: 'Disconnecting from Twilio…',
-          status: 'default'
-        });
-      if (state === 'disconnected')
-        setStatus({
-          statusString: 'Disconnected.',
-          status: 'warning'
-        });
-      if (state === 'denied')
-        setStatus({
-          statusString: 'Failed to connect.',
-          status: 'error'
-        });
-    });
-  }, [chatClient]);
-
-  async function createConversation({ friendlyName }: { friendlyName: string }) {
-    try {
-      const conversation = await chatClient?.createConversation({ friendlyName });
-      return conversation;
-    } catch (error) {
-      console.log('ups', error);
-    }
+  async function createConversation(options: CreateConversationOptions) {
+    const conversation = await conversationsClient?.createConversation(options);
+    conversation?.join();
+    return conversation;
   }
 
-  async function deleteConversation(conversation: Conversation) {
-    try {
-      return await conversation.delete();
-    } catch (error) {
-      console.log('ups', error);
-    }
-  }
-
-  return { conversations, chatClient, status, createConversation, deleteConversation };
-}
-
-async function getConversations(client: TwilioClient) {
-  const paginator = await client.getSubscribedConversations();
-  return paginator.items;
+  return { conversations, conversationsClient, status, createConversation };
 }
 
 export default useConversations;
