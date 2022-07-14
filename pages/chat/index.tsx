@@ -1,7 +1,4 @@
-import Button from 'components/Button';
-import ConversationsHeader from 'components/ConversationsHeader';
-import ConversationsPanel from 'components/ConversationsPanel';
-import CreateConversationPanel from 'components/CreateConversationPanel';
+import ChatSidebar from 'components/ChatSidebar';
 import { ConversationsProvider } from 'contexts/ConversationsCtx';
 import { NextPage } from 'next';
 import Image from 'next/image';
@@ -13,12 +10,7 @@ const Chat: NextPage = () => {
   return (
     <ConversationsProvider>
       <div className="flex w-full h-full">
-        <div className="w-full max-w-sm border-r border-r-purple-400 flex flex-col">
-          <ConversationsHeader />
-          <div className="max-h-full overflow-auto">
-            <ConversationsPanel />
-          </div>
-        </div>
+        <ChatSidebar />
 
         <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
           <div id="chat-header" className="flex items-center justify-between">

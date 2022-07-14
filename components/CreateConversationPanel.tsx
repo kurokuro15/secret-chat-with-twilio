@@ -3,6 +3,7 @@ import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useForm } from 'react-hook-form';
 import { array, object, string } from 'yup';
 import Button from './Button';
+import { Panel } from './ChatSidebar';
 import Input from './forms/Input';
 import InputFeedback from './forms/InputFeedback';
 import CloseIcon from './icons/CloseIcon';
@@ -18,7 +19,11 @@ const validationSchema = object({
   participants: array(string().required())
 });
 
-export default function CreateConversationPanel() {
+export default function CreateConversationPanel({
+  selectPanel
+}: {
+  selectPanel?: (panel: Panel) => void;
+}) {
   const { createConversation } = useConversationsCtx();
 
   const {
@@ -41,6 +46,7 @@ export default function CreateConversationPanel() {
 
   async function onSubmit({ friendlyName, participants }: ConversationData) {
     await createConversation({ friendlyName }, participants);
+    selectPanel && selectPanel('conversations');
   }
 
   return (
