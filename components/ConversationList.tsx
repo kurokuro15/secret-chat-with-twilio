@@ -9,10 +9,7 @@ function ConversationList({ conversations }: ConversationListProps) {
   return (
     <div className="w-full flex flex-col">
       {conversations.map((conversation) => (
-        <ConversationItem
-          key={conversation.uniqueName || conversation.friendlyName}
-          name={conversation.uniqueName || conversation.friendlyName}
-        ></ConversationItem>
+        <ConversationItem key={conversation.sid} name={conversation.friendlyName} />
       ))}
     </div>
   );
