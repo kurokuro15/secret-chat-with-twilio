@@ -9,7 +9,7 @@ interface ConversationItemProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function ConversationItem({ name, imgSrc }: ConversationItemProps) {
   return (
-    <div className="flex gap-5 items-center py-3 px-2 bg-white hover:bg-purple-100 font-bold cursor-pointer transition-all">
+    <div className="flex gap-5 items-center py-3 px-2 bg-white hover:bg-purple-100 font-bold cursor-pointer rounded-md transition-all">
       <Avatar src={imgSrc ?? imgPlaceholder} />
       <div className="grow">{name}</div>
     </div>
