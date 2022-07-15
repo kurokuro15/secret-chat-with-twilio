@@ -36,7 +36,7 @@ function useConversations() {
         if (state === 'connecting')
           setStatus({
             statusString: 'Conectando…',
-            status: 'default'
+            status: 'loading'
           });
         if (state === 'connected') {
           setStatus({
@@ -47,7 +47,7 @@ function useConversations() {
         if (state === 'disconnecting')
           setStatus({
             statusString: 'Desconectando…',
-            status: 'default'
+            status: 'loading'
           });
         if (state === 'disconnected')
           setStatus({
