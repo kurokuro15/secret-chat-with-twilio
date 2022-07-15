@@ -11,6 +11,12 @@ function useAuth() {
     return await supabase.auth.signIn(credentials);
   }
 
+  async function signInWithGithub() {
+    return await supabase.auth.signIn({
+      provider: 'github'
+    });
+  }
+
   async function signUp(credentials: Credentials) {
     return await supabase.auth.signUp(credentials);
   }
@@ -26,6 +32,7 @@ function useAuth() {
 
   return {
     signIn,
+    signInWithGithub,
     signUp,
     signOut,
     jwt: supabase.auth.session()?.access_token,
