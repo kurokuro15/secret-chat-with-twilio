@@ -12,7 +12,7 @@ export default function ChatSidebar({ show }: { show: boolean }) {
   return (
     <div
       className={twMerge(
-        'w-full max-w-sm border-r bg-white border-r-purple-400 absolute flex flex-col transition-all z-10',
+        'w-full h-full max-w-sm md:border-r bg-white border-r-purple-400 absolute flex flex-col transition-all z-10',
         !show && '-translate-x-full',
         show && 'md:static'
       )}
