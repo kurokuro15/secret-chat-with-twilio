@@ -5,15 +5,20 @@ import ChatMessageContainer from 'components/ChatMessangeContainer';
 import ChatSidebar from 'components/ChatSidebar';
 import { ConversationsProvider } from 'contexts/ConversationsCtx';
 import { NextPage } from 'next';
+import { useState } from 'react';
 import { withAuth } from 'utils/withAuth';
 
 const Chat: NextPage = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+  function toggleSidebar() {
+    setShowSidebar((prev) => !prev);
+  }
   return (
     <ConversationsProvider>
       <div className="flex w-full h-full">
-        {/* <ChatSidebar /> */}
+        {showSidebar && <ChatSidebar />}
         <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
-          <ChatHeader />
+          <ChatHeader toggleSidebar={toggleSidebar} />
           <ChatContainer>
             <ChatMessageContainer
               message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá

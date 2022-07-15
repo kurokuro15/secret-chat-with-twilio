@@ -1,20 +1,20 @@
 import perfilTemp from '../public/photo.jpg';
 import Avatar from './Avatar';
 import BackIcon from './icons/BackIcon';
-import Link from 'next/link';
+import Button from './Button';
 
-export default function ChatHeader(props: any) {
+export default function ChatHeader(props: ChatHeaderProps) {
   // interfarce de Chat
-  const { title, status, members, avatar } = props;
+  const { title, status, members, avatar, toggleSidebar } = props;
   return (
     <div
       id="chat-header"
       className="m-0 flex items-center justify-between bg-purple-50 rounded-xl px-2 py-1"
     >
       <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto">
-        <Link href="/">
+        <Button variant="transparent-primary" className="rounded-full" onClick={toggleSidebar}>
           <BackIcon />
-        </Link>
+        </Button>
       </div>
       <div id="chat-header-title" className="p-0 m-0">
         <h1 id="chat" className="p-0 m-0 text-2xl font-bold">
@@ -29,4 +29,12 @@ export default function ChatHeader(props: any) {
       </div>
     </div>
   );
+}
+
+interface ChatHeaderProps {
+  title?: string; // Quitar la opcionalidad al implementar de verdad
+  status?: string; // Quitar la opcionalidad al implementar de verdad
+  members?: string[];
+  avatar?: string; // Quitar la opcionalidad al implementar de verdad
+  toggleSidebar: () => void;
 }

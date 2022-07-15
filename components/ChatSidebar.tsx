@@ -9,7 +9,7 @@ export default function ChatSidebar() {
   const CurrentPanel = panels[selectedPanel];
 
   return (
-    <div className="w-full max-w-sm border-r border-r-purple-400 flex flex-col">
+    <div className="w-full max-w-sm border-r border-r-purple-400 flex flex-col absolute md:static">
       <ConversationsHeader selectPanel={setSelectedPanel} selectedPanel={selectedPanel} />
       <div className="max-h-full overflow-auto p-3">
         <CurrentPanel selectPanel={(panel: Panel) => setSelectedPanel(panel)} />
