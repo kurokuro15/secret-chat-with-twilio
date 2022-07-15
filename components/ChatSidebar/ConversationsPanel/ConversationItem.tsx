@@ -13,7 +13,7 @@ function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItem
   return (
     <div
       className={twMerge(
-        'flex gap-5 items-center py-3 px-2 bg-white hover:bg-purple-100 font-bold cursor-pointer rounded-md transition-all',
+        'flex gap-5 items-center py-3 px-2 bg-white hover:bg-purple-100 font-bold cursor-pointer transition-all',
         selected && 'bg-purple-200 hover:bg-purple-200'
       )}
       {...props}
