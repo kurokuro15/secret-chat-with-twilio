@@ -16,7 +16,7 @@ const Chat: NextPage = () => {
   return (
     <ConversationsProvider>
       <div className="flex w-full h-full">
-        {showSidebar && <ChatSidebar />}
+        <ChatSidebar show={showSidebar} />
         <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
           <ChatHeader toggleSidebar={toggleSidebar} />
           <ChatContainer>
