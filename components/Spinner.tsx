@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 
-export default function Spinner({ className }: { className: string }) {
+export default function Spinner({ className }: { className?: string }) {
   return (
     <div
       className={twMerge(
