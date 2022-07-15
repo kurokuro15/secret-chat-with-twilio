@@ -17,7 +17,7 @@ export default function ChatMessageContainer(
     <div className="m-1.5 p-1">
       <div className={`flex ${flex} gap-6 justify-between`}>
         <div
-          className={`border  rounded-xl ${color} min-w-min md:max-w-md shadow-sm p-1 max-w-[18rem]`}
+          className={`border  rounded-xl ${color} min-w-min lg:max-w-md shadow-sm p-1 max-w-[18rem]`}
         >
           <div className="m-1 pl-2">
             <div className={`font-normal font-sans from-neutral-600 text-[14px]`}>
