@@ -8,10 +8,15 @@ import { useEffect, useRef, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 
 function useConversations() {
+  // Para evitar que se agreguen los listeners del cliente dos veces debido al StrictMode
   const isFirstRun = useRef(true);
+
+  const { jwt } = useAuthCtx();
+
   const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const { jwt } = useAuthCtx();
+  const [selectedConversation, setSelectedConversation] = useState<Conversation>();
+
   const [status, setStatus] = useState({
     status: 'default',
     statusString: 'Connecting to Twilio…'
@@ -93,7 +98,19 @@ function useConversations() {
     }
   }
 
-  return { conversations, conversationsClient, status, createConversation };
+  function selectConversation(conversation: Conversation) {
+    setSelectedConversation(conversation);
+    console.log('selecting');
+  }
+
+  return {
+    conversations,
+    conversationsClient,
+    status,
+    createConversation,
+    selectedConversation,
+    selectConversation
+  };
 }
 
 export default useConversations;
