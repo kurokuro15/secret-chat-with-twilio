@@ -2,10 +2,12 @@ import perfilTemp from '../public/photo.jpg';
 import Avatar from './Avatar';
 import BackIcon from './icons/BackIcon';
 import Button from './Button';
+import { useSidebarCtx } from 'contexts/SidebarCtx';
 
 export default function ChatHeader(props: ChatHeaderProps) {
   // interfarce de Chat
-  const { title, status, members, avatar, toggleSidebar } = props;
+  const { title, status, members, avatar } = props;
+  const { toggleSidebar } = useSidebarCtx();
   return (
     <div
       id="chat-header"
@@ -36,5 +38,4 @@ interface ChatHeaderProps {
   status?: string; // Quitar la opcionalidad al implementar de verdad
   members?: string[];
   avatar?: string; // Quitar la opcionalidad al implementar de verdad
-  toggleSidebar: () => void;
 }
