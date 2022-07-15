@@ -1,49 +1,95 @@
+import ChatContainer from 'components/ChatConteiner';
+import ChatHeader from 'components/ChatHeader';
+import ChatInput from 'components/ChatInput';
+import ChatMessageContainer from 'components/ChatMessangeContainer';
 import ChatSidebar from 'components/ChatSidebar';
 import { ConversationsProvider } from 'contexts/ConversationsCtx';
 import { NextPage } from 'next';
-import Image from 'next/image';
 import { withAuth } from 'utils/withAuth';
-import SendIcon from '../../components/icons/SendIcon';
-import perfilTemp from '../../public/photo.jpg';
 
 const Chat: NextPage = () => {
   return (
     <ConversationsProvider>
       <div className="flex w-full h-full">
-        <ChatSidebar />
-
+        {/* <ChatSidebar /> */}
         <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
-          <div id="chat-header" className="flex items-center justify-between">
-            <div id="chat-header-title" className="p-0 m-0">
-              <h1 id="chat" className="p-0 m-0 text-2xl font-bold">
-                Reynaldo González
-              </h1>
-              <small id="status" className="p-0 m-0 text-sm">
-                Online
-              </small>
-            </div>
-            <div className="chat-image p-0 m-0 h-16 rounded-full border aspect-square overflow-hidden flex drop-shadow-md">
-              <Image className="object-cover" src={perfilTemp} alt="profile" />
-            </div>
-          </div>
-
-          <div className="grow chat-content"></div>
-
+          <ChatHeader />
+          <ChatContainer>
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Hola soy Juan"
+              id={1}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Y yo soy pedro"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              date={{ title: 'today', time: '12:00' }}
+              id={1}
+            />
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Hola soy Juan"
+              id={1}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Y yo soy pedro"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              date={{ title: 'today', time: '12:00' }}
+              id={1}
+            />
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Hola soy Juan"
+              id={1}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Y yo soy pedro"
+              id={2}
+              date={{ title: 'today', time: '12:00' }}
+            />
+            <ChatMessageContainer
+              message="Soy un mensaje to' guapo. Pero si hago mucho texto me desformo ? o no, todo irá
+              bien. Vamos a ver si creo más texto y esto tendría que tener muchas líneas sin
+              importar el texto ni el tamaño de la pantalla.!"
+              date={{ title: 'today', time: '12:00' }}
+              id={1}
+            />
+          </ChatContainer>
           <div className="grow-0 inset-x-0 bottom-0 justify-center">
-            <form className="flex container p-0 m-0 gap-x-3">
-              <div className="p-0 m-0 overflow-hidden flex-1">
-                <input
-                  className="w-full m-0 border pl-2 pb-1.5 pt-1"
-                  type="text"
-                  placeholder="Type a message..."
-                />
-              </div>
-              <div className="p-0 m-0 h-9 rounded-full border aspect-square overflow-hidden flex flex-none align-content justify-center hover:bg-slate-400">
-                <button className="w-full" type="submit" aria-label="send">
-                  <SendIcon className="w-full h-6" />
-                </button>
-              </div>
-            </form>
+            <ChatInput />
           </div>
         </main>
       </div>

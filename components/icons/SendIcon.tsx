@@ -3,14 +3,13 @@ import { SVGProps } from 'react';
 const SendIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height="1em"
-    viewBox="0 0 24 24"
-    width="1em"
+    className="h-7 w-7 rotate-90"
+    viewBox="0 0 20 20"
+    fill="currentColor"
     {...props}
   >
-    <path d="M0 0h24v24H0V0z" fill="none" />
-    <path d="m3.4 20.4 17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.993.993 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z" />
+    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
   </svg>
-)
+);
 
 export default SendIcon;
