@@ -1,7 +1,7 @@
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 import React, { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import ConversationsHeader from './ConversationsHeader';
+import ConversationsHeader from './Header';
 import ConversationsPanel from './ConversationsPanel';
 import CreateConversationPanel from './CreateConversationPanel';
 

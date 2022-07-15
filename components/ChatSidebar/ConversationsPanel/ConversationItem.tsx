@@ -1,6 +1,6 @@
 import imgPlaceholder from 'public/photo.jpg';
 import { StaticImageData } from 'next/image';
-import Avatar from './Avatar';
+import Avatar from '../../Avatar';
 import { twMerge } from 'tailwind-merge';
 
 interface ConversationItemProps extends React.HTMLAttributes<HTMLDivElement> {

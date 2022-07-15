@@ -2,12 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useForm } from 'react-hook-form';
 import { array, object, string } from 'yup';
-import Button from './Button';
-import { Panel } from './ChatSidebar';
-import Input from './forms/Input';
-import InputFeedback from './forms/InputFeedback';
-import CloseIcon from './icons/CloseIcon';
-import PlusIcon from './icons/PlusIcon';
+import Button from '../../Button';
+import { Panel } from '..';
+import Input from '../../forms/Input';
+import InputFeedback from '../../forms/InputFeedback';
+import CloseIcon from '../../icons/CloseIcon';
+import PlusIcon from '../../icons/PlusIcon';
 
 const defaultValues = {
   friendlyName: '',

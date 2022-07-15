@@ -1,8 +1,8 @@
 import ConversationList from './ConversationList';
-import Button from './Button';
+import Button from '../../Button';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useAuthCtx } from 'contexts/AuthCtx';
-import Spinner from './Spinner';
+import Spinner from '../../Spinner';
 
 export default function ConversationsPanel() {
   const { conversations, status } = useConversationsCtx();

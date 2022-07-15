@@ -1,9 +1,9 @@
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 import imgPlaceholder from 'public/photo.jpg';
-import PlusIcon from './icons/PlusIcon';
-import { Panel } from './ChatSidebar';
-import CloseIcon from './icons/CloseIcon';
-import Button from './Button';
+import PlusIcon from '../icons/PlusIcon';
+import { Panel } from '.';
+import CloseIcon from '../icons/CloseIcon';
+import Button from '../Button';
 
 function ConversationsHeader({
   selectPanel,

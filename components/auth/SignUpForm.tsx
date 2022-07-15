@@ -5,21 +5,26 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Credentials } from 'types/api';
 import { object, string } from 'yup';
-import Alert from './Alert';
-import Button from './Button';
-import Input from './forms/Input';
-import InputFeedback from './forms/InputFeedback';
+import Alert from '../Alert';
+import Button from '../Button';
+import Input from '../forms/Input';
+import InputFeedback from '../forms/InputFeedback';
 import GithubSignInButton from './GitHubSignInButton';
-import Spinner from './Spinner';
+import Spinner from '../Spinner';
 
 const schema = object({
   email: string().email().required(),
-  password: string().required()
+  password: string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+      'Debe tener al menos 6 caracteres, un número, una mínuscula y una mayúscula'
+    )
+    .required()
 });
 
-export default function LoginForm({ onSuccess }: LoginFormProps) {
-  const { signIn } = useAuth();
-  const [error, setError] = useState<ApiError | null>();
+function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
+  const { signUp, signInWithGithub } = useAuth();
+  const [error, setError] = useState<ApiError>();
 
   const {
     register,
@@ -28,11 +33,14 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   } = useForm<Credentials>({ resolver: yupResolver(schema) });
 
   async function onSubmit(credentials: Credentials) {
-    const { error } = await signIn(credentials);
+    const { error } = await signUp(credentials);
+
     if (!error) {
       onSuccess();
+      return;
     }
 
+    onError(error);
     setError(error);
   }
 
@@ -62,17 +70,21 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         </label>
 
         <Button
-          className="w-full flex items-center justify-center gap-2 mb-2"
+          className="flex items-center gap-2 justify-center w-full mb-2"
           disabled={isSubmitting}
         >
-          {isSubmitting && <Spinner />} Iniciar sesión
+          {isSubmitting && <Spinner />} ¡Registrarse!
         </Button>
       </form>
+
       <GithubSignInButton />
     </>
   );
 }
 
-interface LoginFormProps {
+interface SignUpFormProps {
   onSuccess: () => void;
+  onError: (error: ApiError) => void;
 }
+
+export default SignUpForm;
