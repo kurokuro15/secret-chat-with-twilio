@@ -1,14 +1,14 @@
 import { variants } from 'components/Notification';
 import { useState } from 'react';
 
-export interface NotificationOptions {
+export interface AddNotificationOptions {
   message: string;
   variant?: keyof typeof variants;
   delay?: number;
   onClose?: () => void;
 }
 
-export interface Notification extends NotificationOptions {
+export interface Notification extends AddNotificationOptions {
   id: number;
   close: () => void;
 }
@@ -21,7 +21,7 @@ function useNotifications() {
    * is 5000 ms.
    * @returns notification id
    */
-  function addNotification(options: NotificationOptions) {
+  function addNotification(options: AddNotificationOptions) {
     const id = nextId;
     setNextId((prev) => prev + 1);
 
