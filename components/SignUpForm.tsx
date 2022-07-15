@@ -67,7 +67,10 @@ function SignUpForm({ onSuccess, onError }: SignUpFormProps) {
         <InputFeedback>{errors.password?.message}</InputFeedback>
       </label>
 
-      <Button className="flex items-center gap-2 justify-center w-full" disabled={isSubmitting}>
+      <Button
+        className="flex items-center gap-2 justify-center w-full mb-2"
+        disabled={isSubmitting}
+      >
         {isSubmitting && <Spinner />} ¡Registrarse!
       </Button>
     </form>

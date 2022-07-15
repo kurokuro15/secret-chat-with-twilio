@@ -59,7 +59,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         <InputFeedback>{errors.password?.message}</InputFeedback>
       </label>
 
-      <Button className="w-full flex items-center justify-center gap-2" disabled={isSubmitting}>
+      <Button
+        className="w-full flex items-center justify-center gap-2 mb-2"
+        disabled={isSubmitting}
+      >
         {isSubmitting && <Spinner />} Iniciar sesión
       </Button>
     </form>
