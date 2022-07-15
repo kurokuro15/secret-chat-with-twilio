@@ -10,7 +10,7 @@ export default function GithubSignInButton() {
       variant="black"
       onClick={signInWithGithub}
     >
-      <GitHubLogo /> Registrarse con GitHub
+      <GitHubLogo /> Iniciar sesión con GitHub
     </Button>
   );
 }
