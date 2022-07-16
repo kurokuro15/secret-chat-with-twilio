@@ -3,12 +3,17 @@ import ChatHeader from 'components/ChatHeader';
 import ChatInput from 'components/ChatInput';
 import ChatMessageContainer from 'components/ChatMessangeContainer';
 import ChatSidebar from 'components/ChatSidebar';
+import WelcomeModal from 'components/WelcomeModal';
+import { useAuthCtx } from 'contexts/AuthCtx';
 import { ConversationsProvider } from 'contexts/ConversationsCtx';
 import { SidebarProvider } from 'contexts/SidebarCtx';
-import { NextPage } from 'next';
 import { withAuth } from 'utils/withAuth';
 
-const Chat: NextPage = () => {
+const Chat = () => {
+  const { user } = useAuthCtx();
+
+  const showWelcomeModal = !!user && !user.username;
+
   return (
     <ConversationsProvider>
       <SidebarProvider>
@@ -95,6 +100,7 @@ const Chat: NextPage = () => {
             </div>
           </main>
         </div>
+        <WelcomeModal show={showWelcomeModal} />
       </SidebarProvider>
     </ConversationsProvider>
   );
