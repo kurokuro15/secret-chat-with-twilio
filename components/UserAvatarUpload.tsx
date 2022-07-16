@@ -1,8 +1,9 @@
 import { useAuthCtx } from 'contexts/AuthCtx';
+import { useNotificationsCtx } from 'contexts/NotificationsCtx';
 import placeholder from 'public/photo.jpg';
 import React, { useState } from 'react';
+import { uploadFile } from 'services/files';
 import { twMerge } from 'tailwind-merge';
-import { supabase } from 'utils/supabaseClient';
 import Avatar from './Avatar';
 import EditIcon from './icons/EditIcon';
 import Spinner from './Spinner';
@@ -10,6 +11,7 @@ import Spinner from './Spinner';
 export function UserAvatarUpload() {
   const { updateUserData, user } = useAuthCtx();
   const [loading, setLoading] = useState(false);
+  const { addNotification } = useNotificationsCtx();
 
   async function onInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
     if (!evt.target.files || evt.target.files.length === 0) return;
@@ -21,11 +23,13 @@ export function UserAvatarUpload() {
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${fileName}`;
 
-    const { error } = await supabase.storage.from('avatars').upload(filePath, file);
-
-    if (!error) {
+    try {
+      await uploadFile('avatars', filePath, file);
       await updateUserData({ avatar_url: filePath });
+    } catch (error) {
+      addNotification({ message: 'Ocurrió un error al subir tu imagen', variant: 'danger' });
     }
+
     setLoading(false);
   }
 
