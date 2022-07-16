@@ -1,7 +1,41 @@
+import { UserAvatarUpload } from 'components/UserAvatarUpload';
+import Button from 'components/Button';
+import CloseIcon from 'components/icons/CloseIcon';
+import { useAuthCtx } from 'contexts/AuthCtx';
+import { useSidebarCtx } from 'contexts/SidebarCtx';
+import PanelContent from '../PanelContent';
+import PanelHeader from '../PanelHeader';
+
 export default function SettingsPanel() {
+  const { changePanel } = useSidebarCtx();
+  const { signOut, user } = useAuthCtx();
+
   return (
     <>
-      <h3>Ajustes</h3>
+      <PanelHeader className="flex gap-5 items-center">
+        <Button
+          variant="transparent-danger"
+          className="rounded-full"
+          onClick={() => changePanel('conversations')}
+        >
+          <CloseIcon />
+        </Button>
+        <h2 className="font-bold">Ajustes</h2>
+      </PanelHeader>
+
+      <PanelContent>
+        <div className="flex gap-5 items-center">
+          <UserAvatarUpload />
+          <div className="grow">
+            <p className="font-bold">{user?.username}</p>
+            <p>{user?.email}</p>
+          </div>
+        </div>
+
+        <Button onClick={() => signOut()} className="mx-auto mt-3 block">
+          Cerrar sesión
+        </Button>
+      </PanelContent>
     </>
   );
 }
