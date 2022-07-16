@@ -2,6 +2,7 @@ import Avatar from 'components/Avatar';
 import Button from 'components/Button';
 import PlusIcon from 'components/icons/PlusIcon';
 import Spinner from 'components/Spinner';
+import { useAuthCtx } from 'contexts/AuthCtx';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 import imgPlaceholder from 'public/photo.jpg';
@@ -11,6 +12,7 @@ import ConversationList from './ConversationList';
 
 export default function ConversationsPanel() {
   const { conversations, status } = useConversationsCtx();
+  const { user } = useAuthCtx();
   const { changePanel } = useSidebarCtx();
 
   return (
@@ -21,7 +23,7 @@ export default function ConversationsPanel() {
           className="rounded-full p-0 hover:ring-4 hover:ring-purple-300 shadow-md"
           onClick={() => changePanel('settings')}
         >
-          <Avatar src={imgPlaceholder} className="w-9 h-9" />
+          <Avatar src={user?.avatar_url ?? imgPlaceholder} className="w-9 h-9" />
         </Button>
         <div>
           <p className="font-bold">Conversaciones</p>
