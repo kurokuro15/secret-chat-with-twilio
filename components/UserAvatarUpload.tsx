@@ -12,10 +12,9 @@ export function UserAvatarUpload() {
   const [loading, setLoading] = useState(false);
 
   async function onInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    if (!evt.target.files || evt.target.files.length === 0) return;
+
     setLoading(true);
-    if (!evt.target.files || evt.target.files.length === 0) {
-      throw new Error('You must select an image to upload.');
-    }
 
     const file = evt.target.files[0];
     const fileExt = file.name.split('.').pop();
