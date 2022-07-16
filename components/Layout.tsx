@@ -6,6 +6,7 @@ function Layout({ children }: { children: ReactNode }) {
     <div className="h-screen w-screen">
       {children}
       <NotificationsContainer />
+      <div id="modalRoot" />
     </div>
   );
 }
