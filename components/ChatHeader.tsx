@@ -11,9 +11,9 @@ export default function ChatHeader(props: ChatHeaderProps) {
   return (
     <div
       id="chat-header"
-      className="m-0 flex items-center justify-between bg-purple-50 rounded-xl px-2 py-1"
+      className="m-0 flex items-center justify-between bg-purple-50 rounded-xl px-2 py-1 shadow-sm"
     >
-      <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto">
+      <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto md:hidden">
         <Button variant="transparent-primary" className="rounded-full" onClick={toggleSidebar}>
           <BackIcon />
         </Button>

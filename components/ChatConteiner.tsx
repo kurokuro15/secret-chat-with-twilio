@@ -6,7 +6,7 @@ export default function ChatContainer({ children }: { children: ReactNode } = { 
     divRef.current?.scrollTo({ top: divRef.current.scrollHeight });
   });
   return (
-    <div ref={divRef} className="grow overflow-y-auto rounded-2xl my-2">
+    <div ref={divRef} className="grow overflow-y-auto rounded-2xl">
       {children}
     </div>
   );
