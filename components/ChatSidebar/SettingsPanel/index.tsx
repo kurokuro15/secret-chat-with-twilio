@@ -1,6 +1,6 @@
-import { UserAvatarUpload } from 'components/UserAvatarUpload';
 import Button from 'components/Button';
-import CloseIcon from 'components/icons/CloseIcon';
+import BackIcon from 'components/icons/BackIcon';
+import { UserAvatarUpload } from 'components/UserAvatarUpload';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 import PanelContent from '../PanelContent';
@@ -14,11 +14,11 @@ export default function SettingsPanel() {
     <>
       <PanelHeader className="flex gap-5 items-center">
         <Button
-          variant="transparent-danger"
+          variant="transparent-primary"
           className="rounded-full"
           onClick={() => changePanel('conversations')}
         >
-          <CloseIcon />
+          <BackIcon />
         </Button>
         <h2 className="font-bold">Ajustes</h2>
       </PanelHeader>

@@ -12,7 +12,7 @@ function ConversationList({ conversations }: ConversationListProps) {
   const { toggleSidebar } = useSidebarCtx();
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col" role="rowgroup">
       {conversations.map((conversation) => (
         <ConversationItem
           key={conversation.sid}
@@ -25,6 +25,7 @@ function ConversationList({ conversations }: ConversationListProps) {
             }
           }}
           selected={!!selectedConversation && conversation.sid === selectedConversation.sid}
+          role="row"
         />
       ))}
     </div>

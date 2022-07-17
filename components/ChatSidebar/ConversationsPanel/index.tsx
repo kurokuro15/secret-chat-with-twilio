@@ -22,16 +22,18 @@ export default function ConversationsPanel() {
           variant="transparent-primary"
           className="rounded-full p-0 hover:ring-4 hover:ring-purple-300 shadow-md"
           onClick={() => changePanel('settings')}
+          aria-label="Ajustes"
         >
           <Avatar src={user?.avatar_url ?? imgPlaceholder} className="w-9 h-9" />
         </Button>
         <div>
-          <p className="font-bold">Conversaciones</p>
+          <h1 className="font-bold">Conversaciones</h1>
         </div>
         <Button
           variant="transparent-primary"
           className="rounded-full"
           onClick={() => changePanel('createConversation')}
+          aria-label="Crear conversación"
         >
           <PlusIcon className="w-8 h-8" />
         </Button>

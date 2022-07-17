@@ -13,6 +13,7 @@ export default function ChatSidebar() {
         !show && '-translate-x-full',
         show && 'lg:static'
       )}
+      role="navigation"
     >
       <CurrentPanel />
     </div>

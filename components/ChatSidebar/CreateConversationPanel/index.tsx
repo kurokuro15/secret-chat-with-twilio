@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import BackIcon from 'components/icons/BackIcon';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 import { useForm } from 'react-hook-form';
@@ -52,11 +53,11 @@ export default function CreateConversationPanel() {
     <>
       <PanelHeader className="flex items-center gap-5">
         <Button
-          variant="transparent-danger"
+          variant="transparent-primary"
           className="rounded-full"
           onClick={() => changePanel('conversations')}
         >
-          <CloseIcon />
+          <BackIcon />
         </Button>
 
         <h2 className="font-bold">Crear conversación</h2>
