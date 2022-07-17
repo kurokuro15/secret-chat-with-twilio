@@ -17,8 +17,8 @@ function ConversationList({ conversations }: ConversationListProps) {
         <ConversationItem
           key={conversation.sid}
           name={conversation.friendlyName}
-          onClick={() => {
-            selectConversation(conversation);
+          onClick={async () => {
+            await selectConversation(conversation);
             // 1024px comes from tailwindcss lg breakpoint
             if (window.innerWidth < 1024) {
               toggleSidebar();

@@ -1,6 +1,6 @@
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useNotificationsCtx } from 'contexts/NotificationsCtx';
-import placeholder from 'public/photo.jpg';
+import placeholder from 'public/avatar.png';
 import React, { useState } from 'react';
 import { uploadFile } from 'services/files';
 import { twMerge } from 'tailwind-merge';

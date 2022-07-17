@@ -5,7 +5,7 @@ import Spinner from 'components/Spinner';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
-import imgPlaceholder from 'public/photo.jpg';
+import imgPlaceholder from 'public/avatar.png';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 import ConversationList from './ConversationList';

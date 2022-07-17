@@ -1,4 +1,4 @@
-import imgPlaceholder from 'public/photo.jpg';
+import imgPlaceholder from 'public/avatar.png';
 import { StaticImageData } from 'next/image';
 import Avatar from '../../Avatar';
 import { twMerge } from 'tailwind-merge';

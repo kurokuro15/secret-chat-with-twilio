@@ -1,4 +1,4 @@
-import perfilTemp from '../public/photo.jpg';
+import perfilTemp from '../public/avatar.png';
 import Avatar from './Avatar';
 import BackIcon from './icons/BackIcon';
 import Button from './Button';
