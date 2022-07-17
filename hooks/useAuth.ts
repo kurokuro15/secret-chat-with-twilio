@@ -37,6 +37,8 @@ function useAuth() {
     if (!error) {
       setUserData((prev) => ({ ...prev, ...userData }));
     }
+
+    return { error };
   }
 
   useEffect(() => {

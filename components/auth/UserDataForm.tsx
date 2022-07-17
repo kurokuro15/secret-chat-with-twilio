@@ -29,8 +29,8 @@ export default function UserDataForm() {
   const { updateUserData } = useAuthCtx();
 
   async function onSubmit(userData: UserData) {
-    const { data, error } = await updateUserData(userData);
-    console.log(data, error);
+    const { error } = await updateUserData(userData);
+    console.log(error);
   }
 
   return (
