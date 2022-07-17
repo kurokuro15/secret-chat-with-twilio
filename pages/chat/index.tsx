@@ -1,10 +1,8 @@
+import { ChatComponent } from 'components/ChatComponent';
 import ChatSidebar from 'components/ChatSidebar';
 import WelcomeModal from 'components/WelcomeModal';
-import { useAuthCtx } from 'contexts/AuthCtx';
-import { ConversationsProvider } from 'contexts/ConversationsCtx';
-import { SidebarProvider } from 'contexts/SidebarCtx';
+import { ConversationsProvider, SidebarProvider, useAuthCtx } from 'contexts';
 import { withAuth } from 'utils/withAuth';
-import { ChatComponent } from 'components/ChatComponent';
 
 const Chat = () => {
   const { user } = useAuthCtx();

@@ -1,6 +1,5 @@
 import { Conversation } from '@twilio/conversations';
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
-import { useSidebarCtx } from 'contexts/SidebarCtx';
+import { useConversationsCtx, useSidebarCtx } from 'contexts';
 import ConversationItem from './ConversationItem';
 
 interface ConversationListProps {

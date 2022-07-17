@@ -1,8 +1,7 @@
-import Button from 'components/ui/Button';
 import { BackIcon } from 'components/icons';
+import Button from 'components/ui/Button';
 import { UserAvatarUpload } from 'components/UserAvatarUpload';
-import { useAuthCtx } from 'contexts/AuthCtx';
-import { useSidebarCtx } from 'contexts/SidebarCtx';
+import { useAuthCtx, useSidebarCtx } from 'contexts';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 

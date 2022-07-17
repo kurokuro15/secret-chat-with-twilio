@@ -1,11 +1,10 @@
-import { useAuthCtx } from 'contexts/AuthCtx';
-import { useNotificationsCtx } from 'contexts/NotificationsCtx';
+import { useAuthCtx, useNotificationsCtx } from 'contexts';
 import placeholder from 'public/avatar.png';
 import React, { useState } from 'react';
 import { uploadFile } from 'services/files';
 import { twMerge } from 'tailwind-merge';
-import Avatar from './ui/Avatar';
 import EditIcon from './icons/EditIcon';
+import Avatar from './ui/Avatar';
 import Spinner from './ui/Spinner';
 
 export function UserAvatarUpload() {

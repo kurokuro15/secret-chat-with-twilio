@@ -1,10 +1,8 @@
+import { PlusIcon } from 'components/icons';
 import Avatar from 'components/ui/Avatar';
 import Button from 'components/ui/Button';
-import { PlusIcon } from 'components/icons';
 import Spinner from 'components/ui/Spinner';
-import { useAuthCtx } from 'contexts/AuthCtx';
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
-import { useSidebarCtx } from 'contexts/SidebarCtx';
+import { useAuthCtx, useConversationsCtx, useSidebarCtx } from 'contexts';
 import imgPlaceholder from 'public/avatar.png';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';

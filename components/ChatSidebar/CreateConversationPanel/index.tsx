@@ -1,14 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BackIcon, CloseIcon, PlusIcon } from 'components/icons';
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
-import { useSidebarCtx } from 'contexts/SidebarCtx';
+import { useConversationsCtx, useSidebarCtx } from 'contexts';
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import isUsernameAvailable from 'services/isUsernameAvailable';
 import { array, object, string } from 'yup';
-import Button from '../../ui/Button';
 import Input from '../../forms/Input';
 import InputFeedback from '../../forms/InputFeedback';
+import Button from '../../ui/Button';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 

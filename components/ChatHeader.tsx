@@ -2,7 +2,7 @@ import perfilTemp from '../public/avatar.png';
 import Avatar from './ui/Avatar';
 import BackIcon from './icons/BackIcon';
 import Button from './ui/Button';
-import { useSidebarCtx } from 'contexts/SidebarCtx';
+import { useSidebarCtx } from 'contexts';
 
 export default function ChatHeader(props: ChatHeaderProps) {
   // interfarce de Chat

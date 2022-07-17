@@ -1,9 +1,8 @@
-import '../styles/globals.css';
-import 'utils/setupYupLocale';
-import type { AppProps } from 'next/app';
 import Layout from 'components/Layout';
-import { AuthProvider } from 'contexts/AuthCtx';
-import { NotificationsProvider } from 'contexts/NotificationsCtx';
+import { AuthProvider, NotificationsProvider } from 'contexts';
+import type { AppProps } from 'next/app';
+import 'utils/setupYupLocale';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,7 +1,7 @@
 import { ApiError } from '@supabase/supabase-js';
-import { AppLogo } from 'components/icons';
 import { SignUpForm } from 'components/auth';
-import { useNotificationsCtx } from 'contexts/NotificationsCtx';
+import { AppLogo } from 'components/icons';
+import { useNotificationsCtx } from 'contexts';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 

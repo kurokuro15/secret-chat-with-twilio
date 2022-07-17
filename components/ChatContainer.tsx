@@ -1,6 +1,6 @@
-import { Message, Paginator } from '@twilio/conversations';
+import { Message } from '@twilio/conversations';
+import { useConversationsCtx } from 'contexts';
 import { useEffect, useRef, useState } from 'react';
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import ChatMessageContainer from './ChatMessangeContainer';
 
 export default function ChatContainer() {

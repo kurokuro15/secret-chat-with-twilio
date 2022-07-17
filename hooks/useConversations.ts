@@ -3,7 +3,7 @@ import {
   Conversation,
   CreateConversationOptions
 } from '@twilio/conversations';
-import { useAuthCtx } from 'contexts/AuthCtx';
+import { useAuthCtx } from 'contexts';
 import { useEffect, useRef, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 

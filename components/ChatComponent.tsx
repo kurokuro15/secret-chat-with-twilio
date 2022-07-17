@@ -1,4 +1,4 @@
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
+import { useConversationsCtx } from 'contexts';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';

@@ -1,4 +1,4 @@
-import { useAuthCtx } from 'contexts/AuthCtx';
+import { useAuthCtx } from 'contexts';
 
 export default function ChatMessageContainer({
   body,

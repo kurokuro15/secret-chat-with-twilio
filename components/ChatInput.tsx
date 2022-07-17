@@ -1,8 +1,7 @@
 import Button from './ui/Button';
 import Input from './forms/Input';
-import SendIcon from './icons/SendIcon';
-import SmileIcon from './icons/SmileIcon';
-import { useConversationsCtx } from 'contexts/ConversationsCtx';
+import { SendIcon, SmileIcon } from './icons';
+import { useConversationsCtx } from 'contexts';
 import { useState } from 'react';
 
 export default function ChatInput() {

@@ -1,4 +1,4 @@
-import { useNotificationsCtx } from 'contexts/NotificationsCtx';
+import { useNotificationsCtx } from 'contexts';
 import Notification from './Notification';
 
 function NotificationsContainer() {

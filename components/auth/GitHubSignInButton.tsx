@@ -1,6 +1,6 @@
 import Button from 'components/ui/Button';
-import { useAuthCtx } from 'contexts/AuthCtx';
-import GitHubLogo from '../icons/GitHubLogo';
+import { useAuthCtx } from 'contexts';
+import { GitHubLogo } from 'components/icons';
 
 export default function GithubSignInButton() {
   const { signInWithGithub } = useAuthCtx();

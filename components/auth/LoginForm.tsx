@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Credentials } from 'types/api';
 import { object, string } from 'yup';
-import Alert from '../Alert';
+import Alert from '../ui/Alert';
 import Button from '../ui/Button';
 import Input from '../forms/Input';
 import InputFeedback from '../forms/InputFeedback';

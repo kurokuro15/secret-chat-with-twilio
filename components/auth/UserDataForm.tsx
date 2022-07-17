@@ -3,7 +3,7 @@ import Alert from 'components/ui/Alert';
 import Button from 'components/ui/Button';
 import Input from 'components/forms/Input';
 import InputFeedback from 'components/forms/InputFeedback';
-import { useAuthCtx } from 'contexts/AuthCtx';
+import { useAuthCtx } from 'contexts';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import isUsernameAvailable from 'services/isUsernameAvailable';

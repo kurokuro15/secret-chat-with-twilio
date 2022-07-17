@@ -1,4 +1,4 @@
-import { panels, useSidebarCtx } from 'contexts/SidebarCtx';
+import { panels, useSidebarCtx } from 'contexts';
 import { twMerge } from 'tailwind-merge';
 
 export default function ChatSidebar() {
