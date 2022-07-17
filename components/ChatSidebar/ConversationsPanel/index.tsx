@@ -20,7 +20,7 @@ export default function ConversationsPanel() {
       <PanelHeader className="flex justify-between items-center">
         <Button
           variant="transparent-primary"
-          className="rounded-full p-0 hover:ring-4 hover:ring-purple-300 shadow-md"
+          className="rounded-full p-0 hover:scale-105 shadow-md"
           onClick={() => changePanel('settings')}
           aria-label="Ajustes"
         >

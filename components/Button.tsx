@@ -11,7 +11,7 @@ const variantClasses = {
   'outline-primary':
     'text-purple-800 bg-white border border-purple-800 hover:bg-purple-800 hover:text-white focus:ring-purple-300 disabled:bg-black/10 disabled:text-purple-600 disabled:border-purple-600',
   'transparent-primary':
-    'p-1 text-purple-800 hover:bg-purple-100 focus:ring-purple-300 disabled:bg-black/10',
+    'p-1 text-purple-800 hover:bg-purple-500/10 focus:ring-purple-200 disabled:bg-black/10',
   'transparent-danger': 'p-1 text-red-500 hover:bg-red-100 focus:ring-red-300 disabled:bg-black/10'
 };
 
