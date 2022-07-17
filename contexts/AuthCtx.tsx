@@ -67,6 +67,7 @@ function useAuthCtx() {
 
   useEffect(() => {
     async function getUserData() {
+      if (!user) return;
       const { data } = await supabase
         .from('profiles')
         .select('username, avatar_url')
@@ -86,7 +87,7 @@ function useAuthCtx() {
     jwt: supabase.auth.session()?.access_token,
     user: userData && {
       ...userData,
-      avatar_url: getAvatarUrl(userData?.avatar_url),
+      avatar_url: getAvatarUrl(userData.avatar_url),
       email: user?.email
     }
   };
