@@ -1,13 +1,13 @@
 import { BackIcon } from 'components/icons';
 import Button from 'components/ui/Button';
 import { UserAvatarUpload } from 'components/UserAvatarUpload';
-import { useAuthCtx, useSidebarCtx } from 'contexts';
+import { useAuth, useSidebar } from 'hooks';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 
 export default function SettingsPanel() {
-  const { changePanel } = useSidebarCtx();
-  const { signOut, user } = useAuthCtx();
+  const { changePanel } = useSidebar();
+  const { signOut, user } = useAuth();
 
   return (
     <>
