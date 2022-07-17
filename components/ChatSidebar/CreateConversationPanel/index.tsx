@@ -2,7 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import BackIcon from 'components/icons/BackIcon';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
-import { useForm } from 'react-hook-form';
+import React from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+import isUsernameAvailable from 'services/isUsernameAvailable';
 import { array, object, string } from 'yup';
 import Button from '../../Button';
 import Input from '../../forms/Input';
@@ -14,12 +16,22 @@ import PanelHeader from '../PanelHeader';
 
 const defaultValues = {
   friendlyName: '',
-  participants: ['']
+  participants: [{ username: '' }]
 };
 
 const validationSchema = object({
   friendlyName: string().required(),
-  participants: array(string().required())
+  participants: array(
+    object({
+      username: string()
+        .required()
+        .test('is-user', 'Este usuario no existe', async (username) => {
+          if (!username) return true;
+          const isUser = !(await isUsernameAvailable(username));
+          return isUser;
+        })
+    })
+  )
 });
 
 export default function CreateConversationPanel() {
@@ -29,20 +41,15 @@ export default function CreateConversationPanel() {
   const {
     handleSubmit,
     register,
-    formState: { touchedFields, errors },
-    getValues,
-    setValue,
-    watch
-  } = useForm<ConversationData>({ defaultValues, resolver: yupResolver(validationSchema) });
+    formState: { touchedFields, errors, isSubmitting },
+    control
+  } = useForm<ConversationData>({
+    defaultValues,
+    resolver: yupResolver(validationSchema),
+    reValidateMode: 'onSubmit'
+  });
 
-  function addParticipant() {
-    setValue('participants', ['', ...getValues('participants')]);
-  }
-
-  function deleteParticipant(index: number) {
-    const participants = getValues('participants').filter((p, i) => i !== index);
-    setValue('participants', participants);
-  }
+  const { fields, prepend, remove } = useFieldArray({ control, name: 'participants' });
 
   async function onSubmit({ friendlyName, participants }: ConversationData) {
     await createConversation({ friendlyName }, participants);
@@ -77,42 +84,48 @@ export default function CreateConversationPanel() {
           <hr className="my-3" />
 
           <div className="flex justify-between items-center">
-            <label>Participantes</label>
+            <label htmlFor="participants">Participantes</label>
             <Button
               className="rounded-full"
               variant="transparent-primary"
               type="button"
-              onClick={addParticipant}
+              onClick={() => prepend({ username: '' })}
             >
               <PlusIcon className="w-6 h-6" />
             </Button>
           </div>
 
-          {watch('participants').map((participant, index, array) => (
-            <div key={index} className="flex gap-1 justify-between items-center mt-2">
-              <Input
-                {...register(`participants.${index}`)}
-                isInvalid={
-                  !!(
-                    touchedFields.participants &&
-                    errors.participants &&
-                    touchedFields.participants[index] &&
-                    errors.participants[index]
-                  )
-                }
-              />
-              {index < array.length - 1 && (
-                <div
-                  onClick={() => deleteParticipant(index)}
-                  className="text-red-500 cursor-pointer rounded-full hover:bg-red-100 p-1 transition-all"
-                >
-                  <CloseIcon />
+          <div id="participants">
+            {fields.map((field, index) => (
+              <React.Fragment key={field.id}>
+                <div className="flex gap-2 justify-between mt-2">
+                  <Input
+                    {...register(`participants.${index}.username`)}
+                    isInvalid={
+                      !!(
+                        touchedFields.participants &&
+                        errors.participants &&
+                        touchedFields.participants[index] &&
+                        errors.participants[index]
+                      )
+                    }
+                  />
+                  <Button
+                    onClick={() => remove(index)}
+                    variant="transparent-danger"
+                    className="rounded-full"
+                  >
+                    <CloseIcon />
+                  </Button>
                 </div>
-              )}
-            </div>
-          ))}
+                <InputFeedback>
+                  {errors.participants && errors.participants[index]?.username?.message}
+                </InputFeedback>
+              </React.Fragment>
+            ))}
+          </div>
 
-          <Button type="submit" className="block w-full mt-3">
+          <Button type="submit" className="block w-full mt-3" disabled={isSubmitting}>
             Crear conversación
           </Button>
         </form>
@@ -123,5 +136,5 @@ export default function CreateConversationPanel() {
 
 interface ConversationData {
   friendlyName: string;
-  participants: string[];
+  participants: { username: string }[];
 }
