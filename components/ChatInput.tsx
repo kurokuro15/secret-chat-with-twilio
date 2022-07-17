@@ -2,10 +2,27 @@ import Button from './Button';
 import Input from './forms/Input';
 import SendIcon from './icons/SendIcon';
 import SmileIcon from './icons/SmileIcon';
+import { useConversationsCtx } from 'contexts/ConversationsCtx';
+import { useState } from 'react';
 
 export default function ChatInput() {
+  let [input, setInput] = useState('');
+  const { selectedConversation } = useConversationsCtx();
+
+  const sendMessage = async () => {
+    if (input.length > 0) {
+      await selectedConversation?.sendMessage(input);
+      setInput('');
+    }
+  };
   return (
-    <form className="flex gap-x-3 h-9">
+    <form
+      className="flex gap-x-3 h-9"
+      onSubmit={(e) => {
+        e.preventDefault();
+        sendMessage();
+      }}
+    >
       <Button
         variant="outline-primary"
         className="rounded-full p-1 aspect-square border-purple-300"
@@ -18,13 +35,17 @@ export default function ChatInput() {
         <Input
           className="border rounded-xl border-purple-300"
           type="text"
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
           placeholder="Type a message..."
         />
       </div>
       <Button
         variant="outline-primary"
         className="rounded-full p-1 aspect-square border-purple-300"
-        type="button"
+        type="submit"
         aria-label="send"
       >
         <SendIcon className="w-full rotate-90" />

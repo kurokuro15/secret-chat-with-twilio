@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useAuthCtx } from 'contexts/AuthCtx';
 
-export default function ChatMessageContainer(
-  { message, id, date }: { message: string; id: number; date: { title: string; time: string } } = {
-    message: '',
-    id: 0,
-    date: { title: '', time: '' }
-  }
-) {
+export default function ChatMessageContainer({
+  body,
+  author,
+  date
+}: {
+  body: string | null;
+  author: string | null;
+  date: Date | null;
+}) {
   let flex = 'flex-row';
   let color = 'border-gray-100  bg-gray-100';
-  if (id === 1) {
+  const { user } = useAuthCtx();
+
+  if (author === user?.email) {
     flex = 'flex-row-reverse';
     color = 'border-purple-100  bg-purple-100';
   }
+
   return (
     <div className="m-1.5 p-1">
       <div className={`flex ${flex} gap-6 justify-between`}>
@@ -22,13 +27,13 @@ export default function ChatMessageContainer(
           <div className="m-1 pl-2">
             <div className={`font-normal font-sans from-neutral-600 text-[14px]`}>
               <p id="message-content">
-                {message}
+                {body}
                 <span className="relative top-1.5 bottom-auto float-right ml-1.5 px-1 ">
                   <span
                     className="message-time text-[.75rem] whitespace-nowrap italic text-gray-600"
-                    title={date.title || 'today'}
+                    title={'today'}
                   >
-                    {date.time || '12:00'}
+                    {date?.getHours()}:{date?.getMinutes()}
                   </span>
                 </span>
               </p>
