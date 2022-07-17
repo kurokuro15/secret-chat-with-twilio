@@ -1,10 +1,13 @@
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { object, string } from 'yup';
-import Input from 'components/forms/Input';
+import Alert from 'components/Alert';
 import Button from 'components/Button';
+import Input from 'components/forms/Input';
 import InputFeedback from 'components/forms/InputFeedback';
 import { useAuthCtx } from 'contexts/AuthCtx';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import checkUsername from 'services/checkUsername';
+import { object, string } from 'yup';
 
 const schema = object({
   username: string()
@@ -27,14 +30,23 @@ export default function UserDataForm() {
   } = useForm<UserData>({ resolver: yupResolver(schema) });
 
   const { updateUserData } = useAuthCtx();
+  const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(userData: UserData) {
-    const { error } = await updateUserData(userData);
-    console.log(error);
+    const isAvailable = await checkUsername(userData.username);
+    if (!isAvailable) {
+      setError('El nombre de usuario no está disponible');
+    }
+    await updateUserData(userData);
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {error && (
+        <Alert variant="danger" className="mb-3">
+          {error}
+        </Alert>
+      )}
       <label className="block mb-3">
         <div className="mb-1">Nombre de usuario</div>
         <Input {...register('username')} isInvalid={touchedFields.username && !!errors.username} />
