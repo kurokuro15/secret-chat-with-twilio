@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import setAuthToken from 'services/setAuthToken';
 import { Credentials } from 'types/api';
 import { supabase } from 'utils/supabaseClient';
@@ -9,37 +9,48 @@ function useAuth() {
   const user = supabase.auth.user();
   const [userData, setUserData] = useState<UserData>();
 
-  async function signIn(credentials: Credentials) {
+  const signIn = useCallback(async function (credentials: Credentials) {
     return await supabase.auth.signIn(credentials);
-  }
+  }, []);
 
-  async function signInWithGithub() {
+  const signInWithGithub = useCallback(async function () {
     return await supabase.auth.signIn({
       provider: 'github'
     });
-  }
+  }, []);
 
-  async function signUp(credentials: Credentials) {
+  const signUp = useCallback(async function (credentials: Credentials) {
     return await supabase.auth.signUp(credentials);
-  }
+  }, []);
 
-  async function signOut() {
-    await supabase.auth.signOut();
-    router.push('/login');
-  }
+  const signOut = useCallback(
+    async function () {
+      await supabase.auth.signOut();
+      router.push('/login');
+    },
+    [router]
+  );
 
-  async function updateUserData(userData: UserData) {
-    const { error } = await supabase
-      .from('profiles')
-      .upsert({ id: user?.id, ...userData })
-      .eq('id', user?.id);
+  const updateUserData = useCallback(
+    async function (userData: UserData) {
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user?.id,
+          ...userData
+        })
+        .eq('id', user?.id);
 
-    if (!error) {
-      setUserData((prev) => ({ ...prev, ...userData }));
-    }
+      if (!error) {
+        setUserData((prev) => ({ ...prev, ...userData }));
+      }
 
-    return { error };
-  }
+      return {
+        error
+      };
+    },
+    [user?.id]
+  );
 
   useEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => await setAuthToken(event, session));
