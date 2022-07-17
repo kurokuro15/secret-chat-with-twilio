@@ -13,7 +13,7 @@ export default function ChatMessageContainer({
   let color = 'border-gray-100  bg-gray-100';
   const { user } = useAuthCtx();
 
-  if (author === user?.email) {
+  if (author === user?.username) {
     flex = 'flex-row-reverse';
     color = 'border-purple-100  bg-purple-100';
   }
