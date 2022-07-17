@@ -100,7 +100,6 @@ function useConversations() {
 
   function selectConversation(conversation: Conversation) {
     setSelectedConversation(conversation);
-    console.log('selecting');
   }
 
   return {
