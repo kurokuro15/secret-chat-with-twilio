@@ -11,7 +11,7 @@ function useConversations() {
   // Para evitar que se agreguen los listeners del cliente dos veces debido al StrictMode
   const isFirstRun = useRef(true);
 
-  const { jwt } = useAuthCtx();
+  const { jwt, user } = useAuthCtx();
 
   const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -25,12 +25,13 @@ function useConversations() {
   // Inicializar el cliente de twilio
   useEffect(() => {
     if (!isFirstRun.current) return;
+    if (!jwt || !user?.username || conversationsClient) return;
 
-    async function initClient() {
-      if (!jwt || conversationsClient) return;
-
+    async function initClient(jwt: string) {
       const accessToken = (await (await getChatToken(jwt)).json()).chatToken;
       const client = new TwilioClient(accessToken);
+
+      console.log('ejecutando');
 
       client.on('connectionStateChanged', (state) => {
         if (state === 'connecting')
@@ -73,11 +74,14 @@ function useConversations() {
 
       setConversationsClient(client);
     }
-    initClient();
+    initClient(jwt);
     isFirstRun.current = false;
-  }, [jwt, conversationsClient]);
+  }, [jwt, conversationsClient, user?.username]);
 
-  async function createConversation(options: CreateConversationOptions, participants: string[]) {
+  async function createConversation(
+    options: CreateConversationOptions,
+    participants: { username: string }[]
+  ) {
     try {
       const conversation = await conversationsClient?.createConversation(options);
       if (!conversation) return;
@@ -86,7 +90,7 @@ function useConversations() {
 
       participants.forEach(async (participant) => {
         try {
-          await conversation.add(participant); // No funciona con usuarios que no existan... :(
+          await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
         } catch (error) {
           console.log(error); // TODO
         }

@@ -39,7 +39,8 @@ export default async function handler(
     return;
   }
 
-  const identity = user?.email;
+  const { data } = await supabase.from('profiles').select('username').eq('id', user?.id);
+  const identity = data && data[0].username;
 
   // Create a "grant" which enables a client to use Chat as a given user, on a given device
   const chatGrant = new ChatGrant({ serviceSid });
