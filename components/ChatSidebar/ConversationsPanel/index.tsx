@@ -1,6 +1,6 @@
 import Avatar from 'components/Avatar';
 import Button from 'components/Button';
-import PlusIcon from 'components/icons/PlusIcon';
+import { PlusIcon } from 'components/icons';
 import Spinner from 'components/Spinner';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';

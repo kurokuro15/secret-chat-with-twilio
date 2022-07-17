@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import BackIcon from 'components/icons/BackIcon';
+import { BackIcon, CloseIcon, PlusIcon } from 'components/icons';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 import React from 'react';
@@ -9,8 +9,6 @@ import { array, object, string } from 'yup';
 import Button from '../../Button';
 import Input from '../../forms/Input';
 import InputFeedback from '../../forms/InputFeedback';
-import CloseIcon from '../../icons/CloseIcon';
-import PlusIcon from '../../icons/PlusIcon';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 

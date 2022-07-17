@@ -1,4 +1,4 @@
-import AppLogo from 'components/icons/AppLogo';
+import { AppLogo } from 'components/icons';
 import LoginForm from 'components/auth/LoginForm';
 import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';

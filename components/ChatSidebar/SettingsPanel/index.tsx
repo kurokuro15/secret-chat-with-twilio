@@ -1,5 +1,5 @@
 import Button from 'components/Button';
-import BackIcon from 'components/icons/BackIcon';
+import { BackIcon } from 'components/icons';
 import { UserAvatarUpload } from 'components/UserAvatarUpload';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
