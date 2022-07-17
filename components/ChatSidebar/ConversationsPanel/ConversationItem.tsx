@@ -1,7 +1,9 @@
-import imgPlaceholder from 'public/avatar.png';
+import Button from 'components/Button';
+import VerticalDotsIcon from 'components/icons/VerticalDotsIcon';
 import { StaticImageData } from 'next/image';
-import Avatar from '../../Avatar';
+import imgPlaceholder from 'public/avatar.png';
 import { twMerge } from 'tailwind-merge';
+import Avatar from '../../Avatar';
 
 interface ConversationItemProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string | null;
@@ -20,6 +22,10 @@ function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItem
     >
       <Avatar src={imgSrc ?? imgPlaceholder} />
       <div className="grow">{name}</div>
+
+      <Button variant="transparent-primary">
+        <VerticalDotsIcon />
+      </Button>
     </div>
   );
 }
