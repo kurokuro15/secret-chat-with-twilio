@@ -11,7 +11,7 @@ export default function ChatContainer() {
 
   useEffect(() => {
     divRef.current?.scrollTo({ top: divRef.current.scrollHeight });
-  });
+  }, []);
 
   useEffect(() => {
     const getMsg = async () => {
