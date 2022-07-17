@@ -31,7 +31,7 @@ function useAuth() {
   async function updateUserData(userData: UserData) {
     const { error } = await supabase
       .from('profiles')
-      .update({ ...userData })
+      .upsert({ id: user?.id, ...userData })
       .eq('id', user?.id);
 
     if (!error) {
