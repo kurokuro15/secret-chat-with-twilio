@@ -17,12 +17,10 @@ function ConversationList({ conversations }: ConversationListProps) {
         <ConversationItem
           key={conversation.sid}
           name={conversation.friendlyName}
-          onClick={async () => {
-            await selectConversation(conversation);
+          onClick={() => {
+            selectConversation(conversation);
             // 1024px comes from tailwindcss lg breakpoint
-            if (window.innerWidth < 1024) {
-              toggleSidebar();
-            }
+            if (window.innerWidth < 1024) toggleSidebar();
           }}
           selected={!!selectedConversation && conversation.sid === selectedConversation.sid}
           role="row"
