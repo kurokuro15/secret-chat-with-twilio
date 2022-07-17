@@ -6,7 +6,7 @@ import InputFeedback from 'components/forms/InputFeedback';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import checkUsername from 'services/checkUsername';
+import isUsernameAvailable from 'services/isUsernameAvailable';
 import { object, string } from 'yup';
 
 const schema = object({
@@ -33,7 +33,7 @@ export default function UserDataForm() {
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(userData: UserData) {
-    const isAvailable = await checkUsername(userData.username);
+    const isAvailable = await isUsernameAvailable(userData.username);
     if (!isAvailable) {
       setError('El nombre de usuario no está disponible');
     }
