@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import CloseIcon from './icons/CloseIcon';
+import CloseIcon from '../icons/CloseIcon';
 
 interface NotificationProps {
   variant?: keyof typeof variants;

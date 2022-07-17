@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import NotificationsContainer from './NotificationsContainer';
+import NotificationsContainer from './ui/NotificationsContainer';
 
 function Layout({ children }: { children: ReactNode }) {
   return (

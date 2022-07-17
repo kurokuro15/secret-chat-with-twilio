@@ -1,4 +1,4 @@
-import Button from 'components/Button';
+import Button from 'components/ui/Button';
 import { BackIcon } from 'components/icons';
 import { UserAvatarUpload } from 'components/UserAvatarUpload';
 import { useAuthCtx } from 'contexts/AuthCtx';

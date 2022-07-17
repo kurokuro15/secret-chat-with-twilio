@@ -1,7 +1,7 @@
 import perfilTemp from '../public/avatar.png';
-import Avatar from './Avatar';
+import Avatar from './ui/Avatar';
 import BackIcon from './icons/BackIcon';
-import Button from './Button';
+import Button from './ui/Button';
 import { useSidebarCtx } from 'contexts/SidebarCtx';
 
 export default function ChatHeader(props: ChatHeaderProps) {

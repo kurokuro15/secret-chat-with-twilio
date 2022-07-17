@@ -1,9 +1,9 @@
-import Button from 'components/Button';
+import Button from 'components/ui/Button';
 import { VerticalDotsIcon } from 'components/icons';
 import { StaticImageData } from 'next/image';
 import imgPlaceholder from 'public/avatar.png';
 import { twMerge } from 'tailwind-merge';
-import Avatar from '../../Avatar';
+import Avatar from '../../ui/Avatar';
 
 interface ConversationItemProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string | null;

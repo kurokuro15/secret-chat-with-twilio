@@ -1,7 +1,7 @@
-import Avatar from 'components/Avatar';
-import Button from 'components/Button';
+import Avatar from 'components/ui/Avatar';
+import Button from 'components/ui/Button';
 import { PlusIcon } from 'components/icons';
-import Spinner from 'components/Spinner';
+import Spinner from 'components/ui/Spinner';
 import { useAuthCtx } from 'contexts/AuthCtx';
 import { useConversationsCtx } from 'contexts/ConversationsCtx';
 import { useSidebarCtx } from 'contexts/SidebarCtx';

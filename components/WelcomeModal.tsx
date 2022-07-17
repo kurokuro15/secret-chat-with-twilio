@@ -1,5 +1,5 @@
 import UserDataForm from './auth/UserDataForm';
-import Modal from './Modal';
+import Modal from './ui/Modal';
 
 export default function WelcomeModal({ show }: { show: boolean }) {
   return (

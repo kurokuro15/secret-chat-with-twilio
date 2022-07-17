@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import Alert from 'components/Alert';
-import Button from 'components/Button';
+import Alert from 'components/ui/Alert';
+import Button from 'components/ui/Button';
 import Input from 'components/forms/Input';
 import InputFeedback from 'components/forms/InputFeedback';
 import { useAuthCtx } from 'contexts/AuthCtx';

@@ -1,4 +1,4 @@
-import Button from './Button';
+import Button from './ui/Button';
 import Input from './forms/Input';
 import SendIcon from './icons/SendIcon';
 import SmileIcon from './icons/SmileIcon';

@@ -1,4 +1,4 @@
-import { variants } from 'components/Notification';
+import { variants } from 'components/ui/Notification';
 import { useState } from 'react';
 
 export interface AddNotificationOptions {

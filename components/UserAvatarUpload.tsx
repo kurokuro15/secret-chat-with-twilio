@@ -4,9 +4,9 @@ import placeholder from 'public/avatar.png';
 import React, { useState } from 'react';
 import { uploadFile } from 'services/files';
 import { twMerge } from 'tailwind-merge';
-import Avatar from './Avatar';
+import Avatar from './ui/Avatar';
 import EditIcon from './icons/EditIcon';
-import Spinner from './Spinner';
+import Spinner from './ui/Spinner';
 
 export function UserAvatarUpload() {
   const { updateUserData, user } = useAuthCtx();

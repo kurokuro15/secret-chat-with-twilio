@@ -6,7 +6,7 @@ import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import isUsernameAvailable from 'services/isUsernameAvailable';
 import { array, object, string } from 'yup';
-import Button from '../../Button';
+import Button from '../../ui/Button';
 import Input from '../../forms/Input';
 import InputFeedback from '../../forms/InputFeedback';
 import PanelContent from '../PanelContent';
