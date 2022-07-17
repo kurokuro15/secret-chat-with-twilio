@@ -2,16 +2,16 @@ import { PlusIcon } from 'components/icons';
 import Avatar from 'components/ui/Avatar';
 import Button from 'components/ui/Button';
 import Spinner from 'components/ui/Spinner';
-import { useAuthCtx, useConversationsCtx, useSidebarCtx } from 'contexts';
+import { useAuth, useConversations, useSidebar } from 'hooks';
 import imgPlaceholder from 'public/avatar.png';
 import PanelContent from '../PanelContent';
 import PanelHeader from '../PanelHeader';
 import ConversationList from './ConversationList';
 
 export default function ConversationsPanel() {
-  const { conversations, status } = useConversationsCtx();
-  const { user } = useAuthCtx();
-  const { changePanel } = useSidebarCtx();
+  const { conversations, status } = useConversations();
+  const { user } = useAuth();
+  const { changePanel } = useSidebar();
 
   return (
     <>

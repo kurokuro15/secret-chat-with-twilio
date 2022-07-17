@@ -1,57 +1,12 @@
-import { variants } from 'components/ui/Notification';
-import { useState } from 'react';
-
-export interface AddNotificationOptions {
-  message: string;
-  variant?: keyof typeof variants;
-  delay?: number;
-  onClose?: () => void;
-}
-
-export interface Notification extends AddNotificationOptions {
-  id: number;
-  close: () => void;
-}
+import { NotificationsCtx } from 'contexts';
+import { useContext } from 'react';
 
 function useNotifications() {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [nextId, setNextId] = useState(0);
-
-  /** Adds a notification. If delay is -1 then it won't be deleted automatically. Default delay
-   * is 5000 ms.
-   * @returns notification id
-   */
-  function addNotification(options: AddNotificationOptions) {
-    const id = nextId;
-    setNextId((prev) => prev + 1);
-
-    setNotifications((prev) => {
-      const notification: Notification = {
-        ...options,
-        id,
-        close: () => {
-          options.onClose && options.onClose();
-          deleteNotification(id);
-        }
-      };
-
-      if (notification.delay !== -1)
-        setTimeout(() => deleteNotification(notification.id), notification.delay ?? 5000);
-
-      return [...prev, notification];
-    });
-    return id;
+  const context = useContext(NotificationsCtx);
+  if (!context) {
+    throw new Error('useNotifications must be used inside a NotificationsProvider');
   }
-
-  function deleteNotification(notificationId: number) {
-    setNotifications((prev) => prev.filter((notification) => notification.id !== notificationId));
-  }
-
-  return {
-    addNotification,
-    deleteNotification,
-    notifications
-  };
+  return context;
 }
 
 export default useNotifications;

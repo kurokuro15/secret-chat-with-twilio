@@ -1,9 +1,9 @@
 import Button from 'components/ui/Button';
-import { useAuthCtx } from 'contexts';
+import { useAuth } from 'hooks';
 import { GitHubLogo } from 'components/icons';
 
 export default function GithubSignInButton() {
-  const { signInWithGithub } = useAuthCtx();
+  const { signInWithGithub } = useAuth();
   return (
     <Button
       className="flex items-center gap-2 justify-center w-full mb-2"

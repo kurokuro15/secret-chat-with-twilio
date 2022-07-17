@@ -1,5 +1,5 @@
 import { Conversation } from '@twilio/conversations';
-import { useConversationsCtx, useSidebarCtx } from 'contexts';
+import { useConversations, useSidebar } from 'hooks';
 import ConversationItem from './ConversationItem';
 
 interface ConversationListProps {
@@ -7,8 +7,8 @@ interface ConversationListProps {
 }
 
 function ConversationList({ conversations }: ConversationListProps) {
-  const { selectConversation, selectedConversation } = useConversationsCtx();
-  const { toggleSidebar } = useSidebarCtx();
+  const { selectConversation, selectedConversation } = useConversations();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="w-full flex flex-col" role="rowgroup">

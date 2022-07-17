@@ -1,10 +1,10 @@
-import { useConversationsCtx } from 'contexts';
+import { useConversations } from 'hooks';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 
 export function ChatComponent() {
-  const { selectedConversation } = useConversationsCtx();
+  const { selectedConversation } = useConversations();
   if (!selectedConversation) return null;
   return (
     <>

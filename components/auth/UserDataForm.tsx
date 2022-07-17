@@ -3,7 +3,7 @@ import Alert from 'components/ui/Alert';
 import Button from 'components/ui/Button';
 import Input from 'components/forms/Input';
 import InputFeedback from 'components/forms/InputFeedback';
-import { useAuthCtx } from 'contexts';
+import { useAuth } from 'hooks';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import isUsernameAvailable from 'services/isUsernameAvailable';
@@ -29,7 +29,7 @@ export default function UserDataForm() {
     formState: { errors, touchedFields, isSubmitting }
   } = useForm<UserData>({ resolver: yupResolver(schema) });
 
-  const { updateUserData } = useAuthCtx();
+  const { updateUserData } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
   async function onSubmit(userData: UserData) {

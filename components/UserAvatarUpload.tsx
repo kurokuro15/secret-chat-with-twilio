@@ -1,4 +1,4 @@
-import { useAuthCtx, useNotificationsCtx } from 'contexts';
+import { useAuth, useNotifications } from 'hooks';
 import placeholder from 'public/avatar.png';
 import React, { useState } from 'react';
 import { uploadFile } from 'services/files';
@@ -8,9 +8,9 @@ import Avatar from './ui/Avatar';
 import Spinner from './ui/Spinner';
 
 export function UserAvatarUpload() {
-  const { updateUserData, user } = useAuthCtx();
+  const { updateUserData, user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const { addNotification } = useNotificationsCtx();
+  const { addNotification } = useNotifications();
 
   async function onInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
     if (!evt.target.files || evt.target.files.length === 0) return;

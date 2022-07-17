@@ -1,4 +1,4 @@
-import { useAuthCtx } from 'contexts';
+import { useAuth } from 'hooks';
 
 export default function ChatMessageContainer({
   body,
@@ -11,7 +11,7 @@ export default function ChatMessageContainer({
 }) {
   let flex = 'flex-row';
   let color = 'border-gray-100  bg-gray-100';
-  const { user } = useAuthCtx();
+  const { user } = useAuth();
 
   if (author === user?.username) {
     flex = 'flex-row-reverse';

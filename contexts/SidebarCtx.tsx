@@ -1,7 +1,5 @@
-import ConversationsPanel from 'components/ChatSidebar/ConversationsPanel';
-import CreateConversationPanel from 'components/ChatSidebar/CreateConversationPanel';
-import SettingsPanel from 'components/ChatSidebar/SettingsPanel';
-import React, { ReactNode, useContext, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
+import { Panel } from 'components/ChatSidebar';
 
 interface SidebarCtx {
   show: boolean;
@@ -30,20 +28,4 @@ function SidebarProvider({ children }: { children: ReactNode }) {
   );
 }
 
-function useSidebarCtx() {
-  const context = useContext(SidebarCtx);
-  if (context === undefined) {
-    throw new Error('useSidebarCtx must be use inside a SidebarProvider');
-  }
-  return context;
-}
-
-export { SidebarProvider, useSidebarCtx };
-
-export type Panel = keyof typeof panels;
-
-export const panels = {
-  conversations: ConversationsPanel,
-  createConversation: CreateConversationPanel,
-  settings: SettingsPanel
-};
+export { SidebarProvider, SidebarCtx };

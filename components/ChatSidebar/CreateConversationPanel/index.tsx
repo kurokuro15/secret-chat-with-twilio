@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { BackIcon, CloseIcon, PlusIcon } from 'components/icons';
-import { useConversationsCtx, useSidebarCtx } from 'contexts';
+import { useConversations, useSidebar } from 'hooks';
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import isUsernameAvailable from 'services/isUsernameAvailable';
@@ -32,8 +32,8 @@ const validationSchema = object({
 });
 
 export default function CreateConversationPanel() {
-  const { createConversation } = useConversationsCtx();
-  const { changePanel } = useSidebarCtx();
+  const { createConversation } = useConversations();
+  const { changePanel } = useSidebar();
 
   const {
     handleSubmit,

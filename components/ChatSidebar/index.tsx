@@ -1,8 +1,11 @@
-import { panels, useSidebarCtx } from 'contexts';
+import { useSidebar } from 'hooks';
 import { twMerge } from 'tailwind-merge';
+import ConversationsPanel from './ConversationsPanel';
+import CreateConversationPanel from './CreateConversationPanel';
+import SettingsPanel from './SettingsPanel';
 
 export default function ChatSidebar() {
-  const { show, currentPanel } = useSidebarCtx();
+  const { show, currentPanel } = useSidebar();
 
   const CurrentPanel = panels[currentPanel];
 
@@ -19,3 +22,11 @@ export default function ChatSidebar() {
     </div>
   );
 }
+
+export const panels = {
+  conversations: ConversationsPanel,
+  createConversation: CreateConversationPanel,
+  settings: SettingsPanel
+};
+
+export type Panel = keyof typeof panels;

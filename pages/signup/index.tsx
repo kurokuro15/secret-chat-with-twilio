@@ -1,13 +1,13 @@
 import { ApiError } from '@supabase/supabase-js';
 import { SignUpForm } from 'components/auth';
 import { AppLogo } from 'components/icons';
-import { useNotificationsCtx } from 'contexts';
+import { useNotifications } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function SignUp() {
   const router = useRouter();
-  const { addNotification } = useNotificationsCtx();
+  const { addNotification } = useNotifications();
 
   function onSuccess() {
     router.push('/login');

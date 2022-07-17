@@ -1,10 +1,10 @@
 import { Message } from '@twilio/conversations';
-import { useConversationsCtx } from 'contexts';
+import { useConversations } from 'hooks';
 import { useEffect, useRef, useState } from 'react';
 import ChatMessageContainer from './ChatMessangeContainer';
 
 export default function ChatContainer() {
-  const { selectedConversation } = useConversationsCtx();
+  const { selectedConversation } = useConversations();
 
   const divRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[] | undefined>([]);

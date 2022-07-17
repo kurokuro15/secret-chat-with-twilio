@@ -1,8 +1,8 @@
-import { useNotificationsCtx } from 'contexts';
+import { useNotifications } from 'hooks';
 import Notification from './Notification';
 
 function NotificationsContainer() {
-  const { notifications } = useNotificationsCtx();
+  const { notifications } = useNotifications();
 
   return (
     <div className="w-full max-w-sm px-5 pt-2 lg:pt-0 lg:pb-2 fixed top-0 left-1/2 -translate-x-1/2 lg:top-full lg:left-full lg:-translate-y-full lg:-translate-x-full">

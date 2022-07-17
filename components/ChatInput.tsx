@@ -1,12 +1,12 @@
 import Button from './ui/Button';
 import Input from './forms/Input';
 import { SendIcon, SmileIcon } from './icons';
-import { useConversationsCtx } from 'contexts';
+import { useConversations } from 'hooks';
 import { useState } from 'react';
 
 export default function ChatInput() {
   let [input, setInput] = useState('');
-  const { selectedConversation } = useConversationsCtx();
+  const { selectedConversation } = useConversations();
 
   const sendMessage = async () => {
     if (input.length > 0) {
