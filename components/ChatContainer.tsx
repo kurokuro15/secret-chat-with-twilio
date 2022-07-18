@@ -5,28 +5,31 @@ import ChatMessageContainer from './ChatMessangeContainer';
 
 export default function ChatContainer() {
   const { selectedConversation } = useConversations();
-
+  const isFirstRun = useRef(true);
   const divRef = useRef<HTMLDivElement>(null);
-  const [messages, setMessages] = useState<Message[] | undefined>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     divRef.current?.scrollTo({ top: divRef.current.scrollHeight });
-  }, []);
+  }, [messages]);
 
   useEffect(() => {
+    if(!isFirstRun.current) return;
+    isFirstRun.current = false;
     const getMsg = async () => {
       const paginator = await selectedConversation?.getMessages();
       if (paginator) {
         setMessages(paginator.items);
       }
     };
-    getMsg();
     const subscribe = async () => {
       selectedConversation?.on('messageAdded', (message) => {
-        if (message != undefined) setMessages([...(messages || []), message]);
+        setMessages((messages) => [...messages, message]);
       });
     };
-  }, [selectedConversation, messages]);
+    getMsg();
+    subscribe();
+  }, [selectedConversation]);
 
   return (
     <div ref={divRef} className="grow overflow-y-auto rounded-2xl">
