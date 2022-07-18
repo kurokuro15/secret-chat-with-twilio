@@ -1,11 +1,14 @@
-import Button from './ui/Button';
+import { useConversations } from 'hooks';
+import { useRef, useState } from 'react';
+import EmojiPicker from './EmojiPicker';
 import Input from './forms/Input';
 import { SendIcon, SmileIcon } from './icons';
-import { useConversations } from 'hooks';
-import { useState } from 'react';
+import Button from './ui/Button';
+import Overlay from './ui/Overlay';
 
 export default function ChatInput() {
-  let [input, setInput] = useState('');
+  const [input, setInput] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
   const { selectedConversation } = useConversations();
 
   const sendMessage = async () => {
@@ -14,6 +17,7 @@ export default function ChatInput() {
       setInput('');
     }
   };
+
   return (
     <form
       className="flex gap-x-3 h-9"
@@ -22,14 +26,27 @@ export default function ChatInput() {
         sendMessage();
       }}
     >
-      <Button
-        variant="outline-primary"
-        className="rounded-full p-1 aspect-square border-purple-300"
-        type="button"
-        aria-label="send"
+      <Overlay
+        content={
+          <EmojiPicker
+            onPick={(emoji) => {
+              setInput((prev) => prev + emoji);
+              inputRef.current?.focus();
+            }}
+          />
+        }
+        position="top"
       >
-        <SmileIcon className="w-6 h-6 mx-auto" />
-      </Button>
+        <Button
+          variant="outline-primary"
+          className="rounded-full p-1 aspect-square border-purple-300"
+          type="button"
+          aria-label="emoji"
+        >
+          <SmileIcon className="w-6 h-6 mx-auto" />
+        </Button>
+      </Overlay>
+
       <div className="grow">
         <Input
           className="border rounded-xl border-purple-300"
@@ -39,8 +56,10 @@ export default function ChatInput() {
             setInput(e.target.value);
           }}
           placeholder="Type a message..."
+          ref={inputRef}
         />
       </div>
+
       <Button
         variant="outline-primary"
         className="rounded-full p-1 aspect-square border-purple-300"
