@@ -1,5 +1,3 @@
-import Button from 'components/ui/Button';
-import { VerticalDotsIcon } from 'components/icons';
 import { StaticImageData } from 'next/image';
 import imgPlaceholder from 'public/avatar.png';
 import { twMerge } from 'tailwind-merge';
@@ -22,10 +20,6 @@ function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItem
     >
       <Avatar src={imgSrc ?? imgPlaceholder} className="shrink-0" />
       <div className="grow truncate">{name}</div>
-
-      <Button variant="transparent-primary">
-        <VerticalDotsIcon />
-      </Button>
     </div>
   );
 }

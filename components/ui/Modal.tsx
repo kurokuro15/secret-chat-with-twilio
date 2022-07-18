@@ -4,11 +4,13 @@ import { twMerge } from 'tailwind-merge';
 
 function Modal({
   className,
+  bgClassName,
   children,
   show,
   ...props
 }: {
   className?: string;
+  bgClassName?: string;
   children: ReactNode;
   show: boolean;
 }) {
@@ -23,7 +25,12 @@ function Modal({
   if (!show) return null;
 
   return ReactDOM.createPortal(
-    <div className="w-screen h-screen absolute backdrop-blur-lg top-0 left-0 bg-black/30 flex items-center justify-center z-20">
+    <div
+      className={twMerge(
+        'w-screen h-screen absolute backdrop-blur-lg top-0 left-0 bg-black/30 flex items-center justify-center z-20',
+        bgClassName
+      )}
+    >
       <div
         className={twMerge('fixed bg-white rounded-md p-3 flex flex-col divide-y', className)}
         {...props}
