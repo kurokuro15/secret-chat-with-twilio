@@ -1,5 +1,5 @@
 import { useConversations } from 'hooks';
-import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import EmojiPicker from './EmojiPicker';
 import Input from './forms/Input';
 import { SendIcon, SmileIcon } from './icons';
@@ -7,31 +7,33 @@ import Button from './ui/Button';
 import Overlay from './ui/Overlay';
 
 export default function ChatInput() {
-  const [input, setInput] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    getValues,
+    reset,
+    setFocus,
+    formState: { isSubmitting }
+  } = useForm<InputData>({
+    defaultValues: { message: '' }
+  });
+
   const { selectedConversation } = useConversations();
 
-  const sendMessage = async () => {
-    if (input.length > 0) {
-      await selectedConversation?.sendMessage(input);
-      setInput('');
-    }
+  const onSubmit = async (values: InputData) => {
+    await selectedConversation?.sendMessage(values.message);
+    reset();
   };
 
   return (
-    <form
-      className="flex gap-x-3 h-9"
-      onSubmit={(e) => {
-        e.preventDefault();
-        sendMessage();
-      }}
-    >
+    <form className="flex gap-x-3 h-9" onSubmit={handleSubmit(onSubmit)}>
       <Overlay
         content={
           <EmojiPicker
             onPick={(emoji) => {
-              setInput((prev) => prev + emoji);
-              inputRef.current?.focus();
+              setValue('message', getValues('message') + emoji);
+              setFocus('message');
             }}
           />
         }
@@ -49,14 +51,10 @@ export default function ChatInput() {
 
       <div className="grow">
         <Input
-          className="border rounded-xl border-purple-300"
+          {...register('message', { required: true })}
+          className="border rounded-full border-purple-300"
           type="text"
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-          placeholder="Type a message..."
-          ref={inputRef}
+          placeholder="Escribe un mensaje..."
         />
       </div>
 
@@ -65,9 +63,14 @@ export default function ChatInput() {
         className="rounded-full p-1 aspect-square border-purple-300"
         type="submit"
         aria-label="send"
+        disabled={isSubmitting}
       >
         <SendIcon className="w-full rotate-90" />
       </Button>
     </form>
   );
+}
+
+interface InputData {
+  message: string;
 }
