@@ -1,9 +1,7 @@
 import { variants } from 'components/ui/Notification';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 
-const NotificationsCtx = React.createContext<ReturnType<typeof useNotificationsCtx> | undefined>(
-  undefined
-);
+const NotificationsCtx = React.createContext<NotificationsContext | undefined>(undefined);
 
 function NotificationsProvider({ children }: { children: ReactNode }) {
   const notificationUtils = useNotificationsCtx();
@@ -14,37 +12,38 @@ function NotificationsProvider({ children }: { children: ReactNode }) {
 
 function useNotificationsCtx() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [nextId, setNextId] = useState(0);
+
+  const deleteNotification = useCallback((notificationId: string) => {
+    setNotifications((prev) => prev.filter((notification) => notification.id !== notificationId));
+  }, []);
 
   /** Adds a notification. If delay is -1 then it won't be deleted automatically. Default delay
    * is 5000 ms.
    * @returns notification id
    */
-  function addNotification(options: AddNotificationOptions) {
-    const id = nextId;
-    setNextId((prev) => prev + 1);
+  const addNotification = useCallback(
+    (options: AddNotificationOptions) => {
+      const id = options.message + Date.now();
 
-    setNotifications((prev) => {
-      const notification: Notification = {
-        ...options,
-        id,
-        close: () => {
-          options.onClose && options.onClose();
-          deleteNotification(id);
-        }
-      };
+      setNotifications((prev) => {
+        const notification: Notification = {
+          ...options,
+          id,
+          close: () => {
+            options.onClose && options.onClose();
+            deleteNotification(id);
+          }
+        };
 
-      if (notification.delay !== -1)
-        setTimeout(() => deleteNotification(notification.id), notification.delay ?? 5000);
+        if (notification.delay !== -1)
+          setTimeout(() => deleteNotification(notification.id), notification.delay ?? 5000);
 
-      return [...prev, notification];
-    });
-    return id;
-  }
-
-  function deleteNotification(notificationId: number) {
-    setNotifications((prev) => prev.filter((notification) => notification.id !== notificationId));
-  }
+        return [...prev, notification];
+      });
+      return id;
+    },
+    [deleteNotification]
+  );
 
   return {
     addNotification,
@@ -63,6 +62,8 @@ export interface AddNotificationOptions {
 }
 
 export interface Notification extends AddNotificationOptions {
-  id: number;
+  id: string;
   close: () => void;
 }
+
+type NotificationsContext = ReturnType<typeof useNotificationsCtx>;

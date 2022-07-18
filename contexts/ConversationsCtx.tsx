@@ -3,13 +3,11 @@ import {
   Conversation,
   CreateConversationOptions
 } from '@twilio/conversations';
-import { useAuth } from 'hooks';
+import { useAuth, useNotifications } from 'hooks';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 
-const ConversationsCtx = createContext<ReturnType<typeof useConversationsCtx> | undefined>(
-  undefined
-);
+const ConversationsCtx = createContext<ConversationsContext | undefined>(undefined);
 
 function ConversationsProvider({ children }: { children: ReactNode }) {
   const conversationsUtils = useConversationsCtx();
@@ -19,6 +17,7 @@ function ConversationsProvider({ children }: { children: ReactNode }) {
 }
 
 function useConversationsCtx() {
+  const { addNotification } = useNotifications();
   const { jwt } = useAuth();
 
   const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
@@ -46,10 +45,11 @@ function useConversationsCtx() {
     initClient(jwt);
   }, [jwt]);
 
+  // Agregar los listeners
   useEffect(() => {
     if (!conversationsClient || !jwt) return;
     conversationsClient
-      ?.on('connectionStateChanged', (state) => {
+      .on('connectionStateChanged', (state) => {
         if (state === 'connecting')
           setStatus({
             statusString: 'Conectando…',
@@ -90,10 +90,17 @@ function useConversationsCtx() {
           const newToken = await getChatToken(jwt);
           conversationsClient.updateToken(newToken);
         } catch (error) {
-          console.log(error);
+          if (error instanceof Error) {
+            addNotification({ message: error.message });
+          }
         }
       });
-  }, [jwt, conversationsClient]);
+
+    return () => {
+      conversationsClient.removeAllListeners();
+      setConversations([]);
+    };
+  }, [jwt, conversationsClient, addNotification]);
 
   async function createConversation(
     options: CreateConversationOptions,
@@ -109,13 +116,17 @@ function useConversationsCtx() {
         try {
           await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
         } catch (error) {
-          console.log(error); // TODO
+          if (error instanceof Error) {
+            addNotification({ message: error.message });
+          }
         }
       });
 
       return conversation;
     } catch (error) {
-      console.log(error); // TODO
+      if (error instanceof Error) {
+        addNotification({ message: error.message });
+      }
     }
   }
 
@@ -137,3 +148,5 @@ function useConversationsCtx() {
 }
 
 export { ConversationsProvider, ConversationsCtx };
+
+type ConversationsContext = ReturnType<typeof useConversationsCtx>;
