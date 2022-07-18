@@ -20,8 +20,8 @@ function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItem
       )}
       {...props}
     >
-      <Avatar src={imgSrc ?? imgPlaceholder} />
-      <div className="grow">{name}</div>
+      <Avatar src={imgSrc ?? imgPlaceholder} className="shrink-0" />
+      <div className="grow truncate">{name}</div>
 
       <Button variant="transparent-primary">
         <VerticalDotsIcon />
