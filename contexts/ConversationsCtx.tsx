@@ -131,10 +131,7 @@ function useConversationsCtx() {
   }
 
   function selectConversation(conversation: Conversation) {
-    setSelectedConversation((prev) => {
-      prev?.removeAllListeners();
-      return conversation;
-    });
+    setSelectedConversation(conversation);
   }
 
   return {
