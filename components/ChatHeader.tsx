@@ -4,9 +4,7 @@ import BackIcon from './icons/BackIcon';
 import Button from './ui/Button';
 import { useSidebar } from 'hooks';
 
-export default function ChatHeader(props: ChatHeaderProps) {
-  // interfarce de Chat
-  const { title, status, members, avatar } = props;
+export default function ChatHeader({ title, status, members, avatar }: ChatHeaderProps) {
   const { toggleSidebar } = useSidebar();
   return (
     <div
@@ -20,10 +18,10 @@ export default function ChatHeader(props: ChatHeaderProps) {
       </div>
       <div id="chat-header-title" className="p-0 m-0">
         <h1 id="chat" className="p-0 m-0 text-2xl font-bold">
-          {title ? title : 'Reynaldo González'}
+          {title}
         </h1>
         <small id="status" className="p-0 m-0 text-sm">
-          {members ? members : status || 'Offline'}
+          {members ? members : status}
         </small>
       </div>
       <div className="xl:w-16 chat-image p-0 m-0 rounded-full border aspect-square overflow-hidden flex drop-shadow-md">
@@ -34,8 +32,8 @@ export default function ChatHeader(props: ChatHeaderProps) {
 }
 
 interface ChatHeaderProps {
-  title?: string; // Quitar la opcionalidad al implementar de verdad
-  status?: string; // Quitar la opcionalidad al implementar de verdad
+  title: string | null; // Quitar la opcionalidad al implementar de verdad
+  status: string | null | undefined; // Quitar la opcionalidad al implementar de verdad
   members?: string[];
-  avatar?: string; // Quitar la opcionalidad al implementar de verdad
+  avatar: string | null; // Quitar la opcionalidad al implementar de verdad
 }
