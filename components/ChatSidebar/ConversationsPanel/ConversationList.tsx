@@ -1,5 +1,5 @@
 import { Conversation } from '@twilio/conversations';
-import { useConversations, useNotifications, useSidebar } from 'hooks';
+import { useConversations, useSidebar } from 'hooks';
 import ConversationItem from './ConversationItem';
 
 interface ConversationListProps {
