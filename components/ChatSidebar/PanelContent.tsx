@@ -8,5 +8,5 @@ export default function PanelContent({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={twMerge('p-3 max-h-full overflow-auto', className)}>{children}</div>;
+  return <div className={twMerge('p-3 grow overflow-auto', className)}>{children}</div>;
 }
