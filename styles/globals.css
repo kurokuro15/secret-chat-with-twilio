@@ -9,3 +9,15 @@ a {
 *{ 
   @apply box-border
 }
+
+::-webkit-scrollbar {
+  @apply bg-transparent w-2;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-500/40 rounded-full
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-400/10 rounded-full
+}
