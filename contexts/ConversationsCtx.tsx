@@ -4,7 +4,7 @@ import {
   CreateConversationOptions
 } from '@twilio/conversations';
 import { useAuth } from 'hooks';
-import { createContext, ReactNode, useEffect, useRef, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 
 const ConversationsCtx = createContext<ReturnType<typeof useConversationsCtx> | undefined>(
@@ -19,10 +19,7 @@ function ConversationsProvider({ children }: { children: ReactNode }) {
 }
 
 function useConversationsCtx() {
-  // Para evitar que se agreguen los listeners del cliente dos veces debido al StrictMode
-  const isFirstRun = useRef(true);
-
-  const { jwt, user } = useAuth();
+  const { jwt } = useAuth();
 
   const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -35,14 +32,24 @@ function useConversationsCtx() {
 
   // Inicializar el cliente de twilio
   useEffect(() => {
-    if (!isFirstRun.current) return;
-    if (!jwt || !user?.username || conversationsClient) return;
+    if (!jwt) return;
 
     async function initClient(jwt: string) {
-      const accessToken = (await (await getChatToken(jwt)).json()).chatToken;
-      const client = new TwilioClient(accessToken);
+      try {
+        const accessToken = await getChatToken(jwt);
+        const client = new TwilioClient(accessToken);
+        setConversationsClient(client);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    initClient(jwt);
+  }, [jwt]);
 
-      client.on('connectionStateChanged', (state) => {
+  useEffect(() => {
+    if (!conversationsClient || !jwt) return;
+    conversationsClient
+      ?.on('connectionStateChanged', (state) => {
         if (state === 'connecting')
           setStatus({
             statusString: 'Conectando…',
@@ -69,23 +76,24 @@ function useConversationsCtx() {
             statusString: 'No se pudo conectar.',
             status: 'error'
           });
-      });
-
-      client.on('conversationJoined', (conversation) => {
+      })
+      .on('conversationJoined', (conversation) => {
         setConversations((prev) => [conversation, ...prev]);
-      });
-
-      client.on('conversationLeft', (conversationLeft) => {
+      })
+      .on('conversationLeft', (conversationLeft) => {
         setConversations((prev) =>
           prev.filter((conversation) => conversation !== conversationLeft)
         );
+      })
+      .on('tokenAboutToExpire', async () => {
+        try {
+          const newToken = await getChatToken(jwt);
+          conversationsClient.updateToken(newToken);
+        } catch (error) {
+          console.log(error);
+        }
       });
-
-      setConversationsClient(client);
-    }
-    initClient(jwt);
-    isFirstRun.current = false;
-  }, [jwt, conversationsClient, user?.username]);
+  }, [jwt, conversationsClient]);
 
   async function createConversation(
     options: CreateConversationOptions,
@@ -112,7 +120,10 @@ function useConversationsCtx() {
   }
 
   function selectConversation(conversation: Conversation) {
-    setSelectedConversation(conversation);
+    setSelectedConversation((prev) => {
+      prev?.removeAllListeners();
+      return conversation;
+    });
   }
 
   return {

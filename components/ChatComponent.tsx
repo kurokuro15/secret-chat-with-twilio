@@ -14,7 +14,7 @@ export function ChatComponent() {
   return (
     <>
       <ChatHeader title={friendlyName} status={state?.current} avatar={avatar} />
-      <ChatContainer />
+      {<ChatContainer conversation={selectedConversation} />}
       <div className="grow-0 inset-x-0 bottom-0 justify-center">
         <ChatInput />
       </div>
