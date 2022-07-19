@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Secret Chat</title>
         <meta name="description" content="secret chat by Yhan \& Reynaldo" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
       </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
