@@ -17,7 +17,7 @@ export default function ChatMessageContainer({
     flex = 'flex-row-reverse';
     color = 'border-purple-100  bg-purple-100';
   }
-
+  const timeFormatter = new Intl.DateTimeFormat('es', {hour:"2-digit", minute:"2-digit"})
   return (
     <div className="m-1.5 p-1">
       <div className={`flex ${flex} gap-6 justify-between`}>
@@ -30,10 +30,10 @@ export default function ChatMessageContainer({
                 {body}
                 <span className="relative top-1.5 bottom-auto float-right ml-1.5 px-1 ">
                   <span
-                    className="message-time text-[.75rem] whitespace-nowrap italic text-gray-600"
+                    className="message-time shrink-0 text-[.75rem] whitespace-nowrap italic text-gray-600"
                     title={'today'}
                   >
-                    {date?.getHours()}:{date?.getMinutes()}
+                    {timeFormatter.format(date)}
                   </span>
                 </span>
               </p>
