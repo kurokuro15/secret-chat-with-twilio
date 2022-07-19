@@ -14,9 +14,7 @@ const Chat = () => {
       <SidebarProvider>
         <div className="flex w-full h-full">
           <ChatSidebar />
-          <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
-            <ChatComponent />
-          </main>
+          <ChatComponent />
         </div>
         <WelcomeModal show={showWelcomeModal} />
       </SidebarProvider>
