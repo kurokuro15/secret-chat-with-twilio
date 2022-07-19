@@ -8,3 +8,4 @@ export { default as SendIcon } from './SendIcon';
 export { default as SmileIcon } from './SmileIcon';
 export { default as VerticalDotsIcon } from './VerticalDotsIcon';
 export { default as TrashIcon } from './TrashIcon';
+export { default as LogoutIcon } from './LogoutIcon';
