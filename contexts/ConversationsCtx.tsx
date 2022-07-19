@@ -130,7 +130,7 @@ function useConversationsCtx() {
     }
   }
 
-  function selectConversation(conversation: Conversation) {
+  function selectConversation(conversation?: Conversation) {
     setSelectedConversation(conversation);
   }
 
