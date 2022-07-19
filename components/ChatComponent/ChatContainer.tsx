@@ -33,13 +33,20 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
   return (
     <div ref={divRef} className="grow overflow-y-auto rounded-2xl">
       {messages.map((message) => {
-        const msg: { body: string | null; author: string | null; date: Date | null } = {
+        const msg: iMessenge = {
           body: message.body,
           author: message.author,
-          date: message.dateUpdated
+          date: message.dateUpdated ? message.dateUpdated : new Date,
         };
         return <ChatMessageContainer key={message.sid} {...msg} />;
       })}
     </div>
   );
+}
+
+
+export interface iMessenge {
+  body: string | null;
+  author: string | null;
+  date: Date;
 }

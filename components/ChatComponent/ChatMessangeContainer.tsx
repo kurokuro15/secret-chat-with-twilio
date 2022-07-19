@@ -1,14 +1,11 @@
 import { useAuth } from 'hooks';
+import { iMessenge } from './ChatContainer';
 
 export default function ChatMessageContainer({
   body,
   author,
   date
-}: {
-  body: string | null;
-  author: string | null;
-  date: Date | null;
-}) {
+}: iMessenge) {
   let flex = 'flex-row';
   let color = 'border-gray-100  bg-gray-100';
   const { user } = useAuth();
