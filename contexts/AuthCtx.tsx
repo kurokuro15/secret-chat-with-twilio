@@ -62,7 +62,13 @@ function useAuthCtx() {
   );
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => await setAuthToken(event, session));
+    const subscription = supabase.auth.onAuthStateChange(
+      async (event, session) => await setAuthToken(event, session)
+    );
+
+    return () => {
+      subscription.data?.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
