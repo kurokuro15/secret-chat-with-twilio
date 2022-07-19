@@ -1,14 +1,18 @@
 import { Conversation, Message } from '@twilio/conversations';
 import { useEffect, useRef, useState } from 'react';
 import ChatMessageContainer from './ChatMessangeContainer';
+import { useAuth } from 'hooks';
 
 export default function ChatContainer({ conversation }: { conversation: Conversation }) {
   const divRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
-    divRef.current?.scrollTo({ top: divRef.current.scrollHeight });
-  }, []);
+    const author = messages[messages.length - 1]?.author;
+    console.log(author);
+    if (author === user?.username) divRef.current?.scrollTo({ top: divRef.current.scrollHeight });
+  }, [messages, user]);
 
   useEffect(() => {
     const getMsg = async () => {
