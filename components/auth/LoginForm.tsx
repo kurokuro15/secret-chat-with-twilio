@@ -30,7 +30,9 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
   async function onSubmit(credentials: Credentials) {
     const { error } = await signIn(credentials);
     if (!error) {
-      onSuccess();
+      setTimeout(() => {
+        onSuccess();
+      }, 500);
     }
 
     setError(error);
