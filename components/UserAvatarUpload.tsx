@@ -34,7 +34,7 @@ export function UserAvatarUpload() {
 
   return (
     <label
-      className="group relative cursor-pointer rounded-full overflow-hidden"
+      className="group relative cursor-pointer rounded-full overflow-hidden shadow-md"
       title="Cambiar imagen"
     >
       <div
