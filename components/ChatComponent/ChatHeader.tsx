@@ -19,7 +19,14 @@ export default function ChatHeader({
     <div id="chat-header" className=" bg-purple-50 rounded-xl px-2 py-1 shadow-sm" {...props}>
       <div className="flex items-center justify-between md:mx-3 gap-1">
         <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto md:hidden">
-          <Button variant="transparent-primary" className="rounded-full" onClick={toggleSidebar}>
+          <Button
+            variant="transparent-primary"
+            className="rounded-full"
+            onClick={(evt) => {
+              evt.stopPropagation();
+              toggleSidebar();
+            }}
+          >
             <BackIcon />
           </Button>
         </div>

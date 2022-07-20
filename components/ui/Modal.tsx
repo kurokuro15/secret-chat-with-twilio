@@ -55,7 +55,7 @@ function Header({
 }: {
   className?: string;
   children: ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
 }) {
   return (
     <div
@@ -66,9 +66,11 @@ function Header({
       {...props}
     >
       <div>{children}</div>
-      <Button variant="transparent-danger" className="rounded-full" onClick={onClose}>
-        <CloseIcon />
-      </Button>
+      {onClose && (
+        <Button variant="transparent-danger" className="rounded-full" onClick={onClose}>
+          <CloseIcon />
+        </Button>
+      )}
     </div>
   );
 }
