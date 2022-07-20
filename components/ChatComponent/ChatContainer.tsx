@@ -17,7 +17,7 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
 
   useEffect(() => {
     const getAvatarUrl = async (identity: string | null) => {
-      const url = await getAvatarByUsername(identity);
+      const url = identity ? await getAvatarByUsername(identity) : null;
       console.log('getAvatar', url);
       return [identity, url];
     };
