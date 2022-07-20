@@ -34,7 +34,10 @@ function Modal({
       )}
     >
       <div
-        className={twMerge('fixed bg-white rounded-md p-3 flex flex-col divide-y', className)}
+        className={twMerge(
+          'bg-white rounded-md p-3 flex flex-col divide-y max-h-screen',
+          className
+        )}
         {...props}
       >
         {children}
@@ -72,7 +75,7 @@ function Header({
 
 function Body({ className, children, ...props }: { className?: string; children: ReactNode }) {
   return (
-    <div className={twMerge('pt-3', className)} {...props}>
+    <div className={twMerge('pt-3 overflow-auto px-2', className)} {...props}>
       {children}
     </div>
   );
