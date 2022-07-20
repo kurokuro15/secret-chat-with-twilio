@@ -18,7 +18,6 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
   useEffect(() => {
     const getAvatarUrl = async (identity: string | null) => {
       const url = identity ? await getAvatarByUsername(identity) : null;
-      console.log('getAvatar', url);
       return [identity, url];
     };
     // retorna un array de la identidad y la url de la imagen
@@ -44,19 +43,17 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
     };
 
     getAllAvatarUrl(conversation).then((avatarsUrls) => {
-      console.log(avatarsUrls);
-      console.log(typeof avatarsUrls);
       setAvatars(avatarsUrls);
-
       getMsg();
-
-      conversation.on('messageAdded', (message) => {
-        setMessages((messages) => [...messages, message]);
-      });
     });
 
+    function addMessage(message: Message) {
+      setMessages((messages) => [...messages, message]);
+    }
+    conversation.on('messageAdded', addMessage);
+
     return () => {
-      conversation.removeAllListeners();
+      conversation.removeListener('messageAdded', addMessage);
     };
   }, [conversation]);
 

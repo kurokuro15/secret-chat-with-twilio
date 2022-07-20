@@ -117,17 +117,19 @@ function useConversationsCtx() {
         const conversation = await conversationsClient?.createConversation(options);
         if (!conversation) return;
         await conversation.join();
-        participants.forEach(async (participant) => {
-          try {
-            await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
-          } catch (error) {
-            if (error instanceof Error) {
-              addNotification({
-                message: error.message
-              });
+        await Promise.all(
+          participants.map(async (participant) => {
+            try {
+              await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
+            } catch (error) {
+              if (error instanceof Error) {
+                addNotification({
+                  message: error.message
+                });
+              }
             }
-          }
-        });
+          })
+        );
         return conversation;
       } catch (error) {
         if (error instanceof Error) {
