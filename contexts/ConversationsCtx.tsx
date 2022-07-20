@@ -18,7 +18,7 @@ function ConversationsProvider({ children }: { children: ReactNode }) {
 
 function useConversationsCtx() {
   const { addNotification } = useNotifications();
-  const { jwt } = useAuth();
+  const { jwt, user } = useAuth();
 
   const [conversationsClient, setConversationsClient] = useState<TwilioClient>();
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -31,7 +31,7 @@ function useConversationsCtx() {
 
   // Inicializar el cliente de twilio
   useEffect(() => {
-    if (!jwt) return;
+    if (!jwt || !user) return;
 
     async function initClient(jwt: string) {
       try {
@@ -43,7 +43,7 @@ function useConversationsCtx() {
       }
     }
     initClient(jwt);
-  }, [jwt]);
+  }, [jwt, user]);
 
   // Agregar los listeners
   useEffect(() => {
