@@ -32,7 +32,7 @@ const validationSchema = object({
 });
 
 export default function CreateConversationPanel() {
-  const { createConversation } = useConversations();
+  const { createConversation, selectConversation } = useConversations();
   const { changePanel } = useSidebar();
 
   const {
@@ -49,8 +49,11 @@ export default function CreateConversationPanel() {
   const { fields, prepend, remove } = useFieldArray({ control, name: 'participants' });
 
   async function onSubmit({ friendlyName, participants }: ConversationData) {
-    await createConversation({ friendlyName }, participants);
-    changePanel('conversations');
+    const conversation = await createConversation({ friendlyName }, participants);
+    if (conversation) {
+      changePanel('conversations');
+      selectConversation(conversation);
+    }
   }
 
   return (
