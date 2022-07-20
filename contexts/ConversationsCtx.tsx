@@ -43,6 +43,10 @@ function useConversationsCtx() {
       }
     }
     initClient(jwt);
+
+    return () => {
+      setConversationsClient(undefined);
+    };
   }, [jwt, user?.username]);
 
   // Agregar los listeners
