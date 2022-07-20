@@ -1,6 +1,6 @@
 import { Participant } from '@twilio/conversations';
 import { useConversations } from 'hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
@@ -8,7 +8,25 @@ import ChatInput from './ChatInput';
 export function ChatComponent() {
   const [participants, setParticipants] = useState<Array<Participant>>([]);
   const [identities, setIdentities] = useState<Array<string>>([]);
-  const { selectedConversation } = useConversations();
+  const { selectedConversation, selectConversation } = useConversations();
+
+  const handleKeyUp = useCallback(
+    (evt: KeyboardEvent) => {
+      const keyCode = evt.code;
+      const scapeKeyCode = 'Escape';
+
+      if (keyCode === scapeKeyCode) {
+        selectConversation();
+      }
+    },
+    [selectConversation]
+  );
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => window.removeEventListener('keyup', handleKeyUp);
+  }, [handleKeyUp]);
 
   useEffect(() => {
     if (selectedConversation) {
@@ -35,7 +53,7 @@ export function ChatComponent() {
 
   const { friendlyName, state, attributes } = selectedConversation;
 
-  const title = friendlyName ? friendlyName : "sala de chat";
+  const title = friendlyName ? friendlyName : 'sala de chat';
 
   const status = state?.current ? state.current : 'closed';
 
