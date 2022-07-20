@@ -1,10 +1,9 @@
 import { Conversation } from '@twilio/conversations';
 import AvatarInput from 'components/AvatarUpload';
-import Input from 'components/forms/Input';
 import Avatar from 'components/ui/Avatar';
-import React from 'react';
 import { uploadFile } from 'services/files';
 import getAvatarUrl from 'services/getAvatarUrl';
+import ChatNameForm from './ChatNameForm';
 
 export function ChatInfo({
   conversation,
@@ -32,14 +31,11 @@ export function ChatInfo({
         <Avatar src={attributes.avatar_url} className="w-20 h-20" />
       )}
       <div>
-        <label>
-          <div className="mb-2">Nombre de la conversación</div>
-          <Input
-            defaultValue={conversation.friendlyName || ''}
-            className="border-gray-200"
-            readOnly={!isAdmin}
-          />
-        </label>
+        {isAdmin ? (
+          <ChatNameForm conversation={conversation} />
+        ) : (
+          <p>{conversation.friendlyName}</p>
+        )}
       </div>
     </div>
   );
