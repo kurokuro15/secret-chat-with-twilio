@@ -56,6 +56,7 @@ export default function ChatInput() {
             className="border rounded-full border-purple-300"
             type="text"
             placeholder="Escribe un mensaje..."
+            autoComplete="off"
           />
         </div>
 
