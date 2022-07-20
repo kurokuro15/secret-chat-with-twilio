@@ -9,7 +9,7 @@ interface ConversationListProps {
 }
 
 function ConversationList({ conversations }: ConversationListProps) {
-  const { selectConversation, selectedConversation } = useConversations();
+  const { selectConversation } = useConversations();
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -22,14 +22,13 @@ function ConversationList({ conversations }: ConversationListProps) {
           position="bottom-center"
         >
           <ConversationItem
-            name={conversation.friendlyName}
             onClick={() => {
               selectConversation(conversation);
               // 1024px comes from tailwindcss lg breakpoint
               if (window.innerWidth < 1024) toggleSidebar();
             }}
-            selected={!!selectedConversation && conversation.sid === selectedConversation.sid}
             role="row"
+            conversation={conversation}
           />
         </Overlay>
       ))}

@@ -1,15 +1,19 @@
-import { StaticImageData } from 'next/image';
+import { Conversation } from '@twilio/conversations';
+import Avatar from 'components/ui/Avatar';
+import { useConversations } from 'hooks';
 import imgPlaceholder from 'public/avatar.png';
 import { twMerge } from 'tailwind-merge';
-import Avatar from '../../../ui/Avatar';
 
 interface ConversationItemProps extends React.HTMLAttributes<HTMLDivElement> {
-  name: string | null;
-  imgSrc?: string | StaticImageData;
-  selected: boolean;
+  conversation: Conversation;
 }
 
-function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItemProps) {
+function ConversationItem({ conversation, ...props }: ConversationItemProps) {
+  const { attributes } = conversation;
+  const { avatar_url } = typeof attributes === 'string' ? JSON.parse(attributes) : attributes;
+  const { selectedConversation } = useConversations();
+  const selected = selectedConversation === conversation;
+
   return (
     <div
       className={twMerge(
@@ -18,8 +22,8 @@ function ConversationItem({ name, imgSrc, selected, ...props }: ConversationItem
       )}
       {...props}
     >
-      <Avatar src={imgSrc ?? imgPlaceholder} className="shrink-0" />
-      <div className="grow truncate">{name}</div>
+      <Avatar src={avatar_url ?? imgPlaceholder} className="shrink-0 shadow-md" />
+      <div className="grow truncate">{conversation.friendlyName}</div>
     </div>
   );
 }
