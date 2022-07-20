@@ -31,7 +31,7 @@ function useConversationsCtx() {
 
   // Inicializar el cliente de twilio
   useEffect(() => {
-    if (!jwt || !user) return;
+    if (!jwt || !user?.username) return;
 
     async function initClient(jwt: string) {
       try {
@@ -43,7 +43,7 @@ function useConversationsCtx() {
       }
     }
     initClient(jwt);
-  }, [jwt, user]);
+  }, [jwt, user?.username]);
 
   // Agregar los listeners
   useEffect(() => {
