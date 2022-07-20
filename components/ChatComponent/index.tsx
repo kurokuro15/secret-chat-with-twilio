@@ -33,7 +33,6 @@ export function ChatComponent() {
 
   useEffect(() => {
     if (!selectedConversation) return;
-    setShowSettings(false);
 
     const getParticipants = async () => {
       return await selectedConversation.getParticipants();
@@ -57,6 +56,7 @@ export function ChatComponent() {
       setParticipants([]);
       selectedConversation.removeListener('participantJoined', addParticipant);
       selectedConversation.removeListener('participantLeft', removeParticipant);
+      setShowSettings(false);
     };
   }, [selectedConversation, selectConversation, user?.username]);
 
