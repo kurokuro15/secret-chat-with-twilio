@@ -13,7 +13,7 @@ export default function StatusComponent({ status, participantIdentities: partici
 
   useEffect(() => {
     const listFormatter = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' });
-    const string = participants.length > 3 ? participants.length : listFormatter.format(participants);
+    const string = participants.length > 3 ? `${participants.length} Participantes` : listFormatter.format(participants);
     setIdentities(string);
   }, [participants]);
 

@@ -18,7 +18,7 @@ export default function ChatHeader({
   return (
     <div
       id="chat-header"
-      className=" bg-purple-50 rounded-xl px-2 py-1 shadow-sm cursor-pointer"
+      className=" bg-purple-50 rounded-md px-2 py-1 shadow-sm cursor-pointer"
       {...props}
     >
       <div className="flex items-center justify-between md:mx-3 gap-1">
