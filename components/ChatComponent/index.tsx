@@ -1,5 +1,5 @@
 import { Participant } from '@twilio/conversations';
-import { useConversations } from 'hooks';
+import { useAuth, useConversations } from 'hooks';
 import { useCallback, useEffect, useState } from 'react';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
@@ -11,6 +11,7 @@ export function ChatComponent() {
   const [identities, setIdentities] = useState<Array<string>>([]);
   const { selectedConversation, selectConversation } = useConversations();
   const [showSettings, setShowSettings] = useState(false);
+  const { user } = useAuth();
 
   const handleKeyUp = useCallback(
     (evt: KeyboardEvent) => {
@@ -31,16 +32,33 @@ export function ChatComponent() {
   }, [handleKeyUp]);
 
   useEffect(() => {
-    if (selectedConversation) {
-      const getParticipants = async () => {
-        return await selectedConversation.getParticipants();
-      };
-      getParticipants().then((participants) => setParticipants(participants));
+    if (!selectedConversation) return;
+    setShowSettings(false);
+
+    const getParticipants = async () => {
+      return await selectedConversation.getParticipants();
+    };
+    getParticipants().then((participants) => setParticipants(participants));
+
+    function addParticipant(participant: Participant) {
+      setParticipants((prev) => [participant, ...prev]);
     }
+
+    function removeParticipant(participant: Participant) {
+      setParticipants((prev) => prev.filter((par) => par !== participant));
+      if (participant.identity === user?.username) selectConversation();
+    }
+
+    selectedConversation
+      .on('participantJoined', addParticipant)
+      .on('participantLeft', removeParticipant);
+
     return () => {
       setParticipants([]);
+      selectedConversation.removeListener('participantJoined', addParticipant);
+      selectedConversation.removeListener('participantLeft', removeParticipant);
     };
-  }, [selectedConversation]);
+  }, [selectedConversation, selectConversation, user?.username]);
 
   useEffect(() => {
     participants.forEach((participant) =>
@@ -75,6 +93,7 @@ export function ChatComponent() {
       <ChatSettings
         show={showSettings}
         conversation={selectedConversation}
+        participants={participants}
         attributes={attributes}
         onClose={() => setShowSettings(false)}
       />
