@@ -4,7 +4,7 @@ import {
   CreateConversationOptions
 } from '@twilio/conversations';
 import { useAuth, useNotifications } from 'hooks';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useCallback, useEffect, useState } from 'react';
 import getChatToken from 'services/getChatToken';
 
 const ConversationsCtx = createContext<ConversationsContext | undefined>(undefined);
@@ -102,37 +102,43 @@ function useConversationsCtx() {
     };
   }, [jwt, conversationsClient, addNotification]);
 
-  async function createConversation(
-    options: CreateConversationOptions,
-    participants: { username: string }[]
-  ) {
-    try {
-      const conversation = await conversationsClient?.createConversation(options);
-      if (!conversation) return;
-
-      await conversation.join();
-
-      participants.forEach(async (participant) => {
-        try {
-          await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
-        } catch (error) {
-          if (error instanceof Error) {
-            addNotification({ message: error.message });
+  const createConversation = useCallback(
+    async function (
+      options: CreateConversationOptions,
+      participants: {
+        username: string;
+      }[]
+    ) {
+      try {
+        const conversation = await conversationsClient?.createConversation(options);
+        if (!conversation) return;
+        await conversation.join();
+        participants.forEach(async (participant) => {
+          try {
+            await conversation.add(participant.username); // No funciona con usuarios que no existan... :(
+          } catch (error) {
+            if (error instanceof Error) {
+              addNotification({
+                message: error.message
+              });
+            }
           }
+        });
+        return conversation;
+      } catch (error) {
+        if (error instanceof Error) {
+          addNotification({
+            message: error.message
+          });
         }
-      });
-
-      return conversation;
-    } catch (error) {
-      if (error instanceof Error) {
-        addNotification({ message: error.message });
       }
-    }
-  }
+    },
+    [addNotification, conversationsClient]
+  );
 
-  function selectConversation(conversation?: Conversation) {
+  const selectConversation = useCallback(function (conversation?: Conversation) {
     setSelectedConversation(conversation);
-  }
+  }, []);
 
   return {
     conversations,
