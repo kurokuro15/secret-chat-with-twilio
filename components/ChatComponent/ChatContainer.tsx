@@ -1,14 +1,21 @@
-import { Conversation, Message, Participant } from '@twilio/conversations';
-import { useEffect, useRef, useState } from 'react';
-import ChatMessageContainer from './ChatMessangeContainer';
+import { Conversation, Message } from '@twilio/conversations';
 import { useAuth } from 'hooks';
+import { useEffect, useRef, useState, useTransition } from 'react';
 import getAvatarByUsername from 'services/getAvatarByUsername';
+import ChatMessageContainer from './ChatMessangeContainer';
 
 export default function ChatContainer({ conversation }: { conversation: Conversation }) {
   const divRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [avatars, setAvatars] = useState<Record<string, string>>({});
   const { user } = useAuth();
+  const [gotMessages, startSettingMessages] = useTransition();
+
+  useEffect(() => {
+    if (!gotMessages) {
+      divRef.current?.scrollTo({ top: divRef.current.scrollHeight, behavior: 'auto' });
+    }
+  }, [gotMessages]);
 
   useEffect(() => {
     const author = messages[messages.length - 1]?.author;
@@ -39,7 +46,9 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
 
     const getMsg = async () => {
       const paginator = await conversation.getMessages();
-      setMessages(paginator.items);
+      startSettingMessages(() => {
+        setMessages(paginator.items);
+      });
     };
 
     getAllAvatarUrl(conversation).then((avatarsUrls) => {
