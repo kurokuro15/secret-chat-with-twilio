@@ -4,6 +4,9 @@ import type { AppProps } from 'next/app';
 import 'utils/setupYupLocale';
 import '../styles/globals.css';
 import Head from 'next/head';
+const matchAll = require('string.prototype.matchall');
+
+if (String.prototype.matchAll === undefined) matchAll.shim();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
