@@ -1,20 +1,22 @@
-import placeHolder from '../../public/avatar.png';
-import Avatar from '../ui/Avatar';
-import BackIcon from '../icons/BackIcon';
-import Button from '../ui/Button';
 import { useSidebar } from 'hooks';
+import { useState } from 'react';
+import placeHolder from '../../public/avatar.png';
+import BackIcon from '../icons/BackIcon';
+import Avatar from '../ui/Avatar';
+import Button from '../ui/Button';
 import StatusComponent, { iHandlerStatus } from './StatusComponent';
 
 export default function ChatHeader({
   title,
   status,
   participantIdentities,
-  avatar
+  avatar,
+  ...props
 }: ChatHeaderProps) {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <div id="chat-header" className=" bg-purple-50 rounded-xl px-2 py-1 shadow-sm">
+    <div id="chat-header" className=" bg-purple-50 rounded-xl px-2 py-1 shadow-sm" {...props}>
       <div className="flex items-center justify-between md:mx-3 gap-1">
         <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto md:hidden">
           <Button variant="transparent-primary" className="rounded-full" onClick={toggleSidebar}>
@@ -35,7 +37,7 @@ export default function ChatHeader({
   );
 }
 
-interface ChatHeaderProps {
+interface ChatHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   status: keyof iHandlerStatus;
   participantIdentities: Array<string>;

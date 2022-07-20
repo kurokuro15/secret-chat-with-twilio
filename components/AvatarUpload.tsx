@@ -1,0 +1,62 @@
+import { useNotifications } from 'hooks';
+import placeholder from 'public/avatar.png';
+import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { EditIcon } from './icons';
+import Avatar from './ui/Avatar';
+import Spinner from './ui/Spinner';
+
+export default function AvatarInput({
+  imgSrc,
+  onChange,
+  className
+}: {
+  imgSrc?: string;
+  onChange: (filePath: string, file: File) => Promise<void>;
+  className?: string;
+}) {
+  const [loading, setLoading] = useState(false);
+  const { addNotification } = useNotifications();
+
+  async function onInputChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    if (!evt.target.files || evt.target.files.length === 0) return;
+
+    setLoading(true);
+
+    const file = evt.target.files[0];
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    try {
+      await onChange(filePath, file);
+    } catch (error) {
+      addNotification({ message: 'Ocurrió un error al subir tu imagen', variant: 'danger' });
+    }
+
+    setLoading(false);
+  }
+
+  return (
+    <label
+      className={twMerge('group relative cursor-pointer rounded-full overflow-hidden', className)}
+      title="Cambiar imagen"
+    >
+      <div
+        className={twMerge(
+          !loading && 'invisible',
+          'bg-black/50 backdrop-blur-sm transition-all group-hover:visible absolute flex items-center justify-center w-full h-full z-10'
+        )}
+      >
+        {loading ? <Spinner /> : <EditIcon className="text-white" />}
+      </div>
+      <Avatar src={imgSrc ?? placeholder} className="w-20 h-20" />
+      <input
+        type="file"
+        accept="image/gif,image/jpeg,image/jpg,image/png"
+        onChange={(evt) => onInputChange(evt)}
+        hidden
+      />
+    </label>
+  );
+}

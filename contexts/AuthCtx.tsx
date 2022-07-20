@@ -1,4 +1,9 @@
-import React, { ReactNode } from 'react';
+import { useRouter } from 'next/router';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import getAvatarUrl from 'services/getAvatarUrl';
+import setAuthToken from 'services/setAuthToken';
+import { Credentials } from 'types/api';
+import { supabase } from 'utils/supabaseClient';
 
 const AuthCtx = React.createContext<ReturnType<typeof useAuthCtx> | undefined>(undefined);
 
@@ -6,12 +11,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const authUtils = useAuthCtx();
   return <AuthCtx.Provider value={authUtils}>{children}</AuthCtx.Provider>;
 }
-
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
-import setAuthToken from 'services/setAuthToken';
-import { Credentials } from 'types/api';
-import { supabase } from 'utils/supabaseClient';
 
 function useAuthCtx() {
   const router = useRouter();
@@ -93,15 +92,12 @@ function useAuthCtx() {
     jwt: supabase.auth.session()?.access_token,
     user: userData && {
       ...userData,
-      avatar_url: getAvatarUrl(userData.avatar_url),
+      avatar_url: userData.avatar_url && getAvatarUrl(userData.avatar_url),
       email: user?.email
     }
   };
 }
 
-function getAvatarUrl(path?: string) {
-  return (path && supabase.storage.from('avatars').getPublicUrl(path).publicURL) || null;
-}
 interface UserData {
   username?: string;
   avatar_url?: string;

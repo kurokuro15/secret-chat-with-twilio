@@ -4,11 +4,13 @@ import { useCallback, useEffect, useState } from 'react';
 import ChatContainer from './ChatContainer';
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
+import ChatSettings from './ChatSettings';
 
 export function ChatComponent() {
   const [participants, setParticipants] = useState<Array<Participant>>([]);
   const [identities, setIdentities] = useState<Array<string>>([]);
   const { selectedConversation, selectConversation } = useConversations();
+  const [showSettings, setShowSettings] = useState(false);
 
   const handleKeyUp = useCallback(
     (evt: KeyboardEvent) => {
@@ -57,19 +59,25 @@ export function ChatComponent() {
 
   const status = state?.current ? state.current : 'closed';
 
-  const { avatar }: { avatar: string } =
-    typeof attributes === 'string' ? JSON.parse(attributes) : attributes;
+  const convAttributes = typeof attributes === 'string' ? JSON.parse(attributes) : attributes;
 
   return (
     <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
       <ChatHeader
         title={title}
         status={status}
-        avatar={avatar}
+        avatar={convAttributes.avatar_url}
         participantIdentities={identities}
+        onClick={() => setShowSettings(true)}
       />
       <ChatContainer conversation={selectedConversation} />
       <ChatInput />
+      <ChatSettings
+        show={showSettings}
+        conversation={selectedConversation}
+        attributes={attributes}
+        onClose={() => setShowSettings(false)}
+      />
     </main>
   );
 }

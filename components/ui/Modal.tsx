@@ -1,6 +1,8 @@
+import { CloseIcon } from 'components/icons';
 import { ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { twMerge } from 'tailwind-merge';
+import Button from './Button';
 
 function Modal({
   className,
@@ -42,10 +44,28 @@ function Modal({
   );
 }
 
-function Header({ className, children, ...props }: { className?: string; children: ReactNode }) {
+function Header({
+  className,
+  children,
+  onClose,
+  ...props
+}: {
+  className?: string;
+  children: ReactNode;
+  onClose: () => void;
+}) {
   return (
-    <div className={twMerge('text-lg font-bold pb-3', className)} {...props}>
-      {children}
+    <div
+      className={twMerge(
+        'text-lg font-bold pb-3 flex gap-3 items-center justify-between',
+        className
+      )}
+      {...props}
+    >
+      <div>{children}</div>
+      <Button variant="transparent-danger" className="rounded-full" onClick={onClose}>
+        <CloseIcon />
+      </Button>
     </div>
   );
 }
