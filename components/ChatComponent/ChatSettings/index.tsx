@@ -20,7 +20,7 @@ export default function ChatSettings({
   const { user } = useAuth();
   const isAdmin = conversation.createdBy === user?.username;
   return (
-    <Modal show={show} className="p-5">
+    <Modal show={show} className="p-5 max-w-[95%] max-h-[95%]">
       <Modal.Header onClose={onClose}>
         <h3>Ajustes de la conversación</h3>
       </Modal.Header>

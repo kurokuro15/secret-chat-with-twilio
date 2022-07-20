@@ -80,7 +80,7 @@ export function ChatComponent() {
   const convAttributes = typeof attributes === 'string' ? JSON.parse(attributes) : attributes;
 
   return (
-    <main id="chat-component" className="grow overscroll-contain flex flex-col h-full p-2">
+    <main id="chat-component" className="grow overscroll-contain flex flex-col min-w-0 h-full p-2">
       <ChatHeader
         title={title}
         status={status}

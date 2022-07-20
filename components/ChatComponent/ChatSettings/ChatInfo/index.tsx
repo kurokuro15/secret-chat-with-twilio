@@ -25,10 +25,10 @@ export function ChatInfo({
             });
           }}
           imgSrc={attributes.avatar_url}
-          className="shadow-md"
+          className="shadow-md shrink-0"
         />
       ) : (
-        <Avatar src={attributes.avatar_url} className="w-20 h-20" />
+        <Avatar src={attributes.avatar_url} className="w-20 h-20 shrink-0" />
       )}
       <div>
         {isAdmin ? (

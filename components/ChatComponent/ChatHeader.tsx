@@ -1,5 +1,4 @@
 import { useSidebar } from 'hooks';
-import { useState } from 'react';
 import placeHolder from '../../public/avatar.png';
 import BackIcon from '../icons/BackIcon';
 import Avatar from '../ui/Avatar';
@@ -17,12 +16,11 @@ export default function ChatHeader({
 
   return (
     <div
-      id="chat-header"
-      className=" bg-purple-50 rounded-md px-2 py-1 shadow-sm cursor-pointer"
+      className=" bg-purple-50 flex justify-between gap-5 min-w-0 items-center rounded-md px-2 py-1 shadow-sm cursor-pointer"
       {...props}
     >
-      <div className="flex items-center justify-between md:mx-3 gap-1">
-        <div className="chat-header-back aspect-square rounded-full hover:bg-purple-100 transition-colors touch-auto md:hidden">
+      <div className="flex gap-3 min-w-0 items-center">
+        <div>
           <Button
             variant="transparent-primary"
             className="rounded-full"
@@ -34,16 +32,12 @@ export default function ChatHeader({
             <BackIcon />
           </Button>
         </div>
-        <div id="chat-header-title" className="p-0 m-0 grow">
-          <h1 id="chat" className=" p-0 first-letter:capitalize m-0 text-2xl font-bold">
-            {title}
-          </h1>
+        <div className="min-w-0">
+          <h2 className="truncate">{title}</h2>
           <StatusComponent status={status} participantIdentities={participantIdentities} />
         </div>
-        <div className="xl:w-16 chat-image p-0 m-0 rounded-full border aspect-square overflow-hidden flex drop-shadow-md shrink-0">
-          <Avatar src={avatar || placeHolder} className="xl:w-16 xl:h-16" />
-        </div>
       </div>
+      <Avatar src={avatar || placeHolder} className="w-16 h-16 shrink-0" />
     </div>
   );
 }

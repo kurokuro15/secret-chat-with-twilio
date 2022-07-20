@@ -13,14 +13,17 @@ export default function StatusComponent({ status, participantIdentities: partici
 
   useEffect(() => {
     const listFormatter = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' });
-    const string = participants.length > 3 ? `${participants.length} Participantes` : listFormatter.format(participants);
+    const string =
+      participants.length > 3
+        ? `${participants.length} Participantes`
+        : listFormatter.format(participants);
     setIdentities(string);
   }, [participants]);
 
   return (
     <div className="flex flex-row justify-left items-center align-middle gap-2">
       <Circle className={className} />
-      <div className="font-mono"> {identities}</div>
+      <div className="font-mono truncate"> {identities}</div>
     </div>
   );
 }

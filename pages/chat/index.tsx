@@ -12,7 +12,7 @@ const Chat = () => {
   return (
     <ConversationsProvider>
       <SidebarProvider>
-        <div className="flex w-full h-full">
+        <div className="flex w-full h-full min-w-0">
           <ChatSidebar />
           <ChatComponent />
         </div>
