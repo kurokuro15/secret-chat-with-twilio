@@ -94,7 +94,7 @@ export function ChatComponent() {
         show={showSettings}
         conversation={selectedConversation}
         participants={participants}
-        attributes={attributes}
+        attributes={convAttributes}
         onClose={() => setShowSettings(false)}
       />
     </main>

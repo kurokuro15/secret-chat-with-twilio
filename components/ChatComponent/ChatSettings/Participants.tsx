@@ -7,8 +7,10 @@ import Avatar from 'components/ui/Avatar';
 import Button from 'components/ui/Button';
 import { useNotifications } from 'hooks';
 import { useForm } from 'react-hook-form';
+import getAvatarByUsername from 'services/getAvatarByUsername';
 import isUsernameAvailable from 'services/isUsernameAvailable';
 import { object, string } from 'yup';
+import ParticipantAvatar from './ParticipantAvatar';
 
 const defaultValues = {
   participant: ''
@@ -62,7 +64,7 @@ export function Participants({
         {participants.map((participant) => (
           <li key={participant.sid} className="py-3 flex justify-between items-center">
             <div className="flex items-center gap-5">
-              <Avatar />
+              <ParticipantAvatar username={participant.identity} />
               <div>{participant.identity}</div>
             </div>
             {isAdmin && (

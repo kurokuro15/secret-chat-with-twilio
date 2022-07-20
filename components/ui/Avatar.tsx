@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import placeholder from 'public/avatar.png';
 
 interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  src?: string | StaticImageData;
+  src?: string | StaticImageData | null;
   alt?: string;
   size?: number;
 }
