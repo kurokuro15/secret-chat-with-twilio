@@ -35,11 +35,44 @@ O bien bajar el archivo `zip` y descomprimirlo.
 
 Primero, se ha de crear un proyecto nuevo en supabase, con la siguiente estructura de base de datos:
 
+Tabla profiles
+
+- id: uuid -> auth.uuid // llave foránea al id de los usuarios de la tabla auth
+- username: varchar unique
+- avatar_url: varchar
+
+Se debe crear el siguiente trigger para crear un registro en la tabla profiles cada vez que un usuario se registre. Este script se puede ejecutar en la consola SQL de supabase:
+
+```sql
+-- inserts a row into public.users
+create function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id)
+  values (new.id);
+  return new;
+end;
+$$;
+
+-- trigger the function every time a user is created
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
 ```
 
-```
+Se necesita además un bucket de storage público llamado 'avatars', el cual almacenará los avatares de los usuarios: [Create a bucket](https://supabase.com/docs/guides/storage#create-a-bucket)
+
+Se debe activar la autenticación por email y por github siguiendo las instrucciones de la documentación:
+
+- [Email](https://supabase.com/docs/guides/auth/auth-email)
+- [GitHub](https://supabase.com/docs/guides/auth/auth-github)
 
 Así mismo, hemos de crear un servicio en [TWILIO](https://www.twilio.com/referral/xdppiQ) y recuperar de este el `ACCOUNT_SID`, `API_KEY`, `API_SECRET` y `SERVICE_SID`.
+
+- La API_KEY y su respectivo API_SECRET se pueden crear desde [Create API Keys](https://console.twilio.com/us1/account/keys-credentials/api-keys?frameUrl=%2Fconsole%2Fproject%2Fapi-keys%3Fx-target-region%3Dus1). Debe estar asociada al SERVICE_SID creado anteriormente.
 
 ### Inicializando Variables de entorno
 
@@ -71,7 +104,7 @@ yarn dev
 
 Abrimos [http://localhost:3000](http://localhost:3000) en el navegador para visitar la aplicación.
 
-## Deploy on Vercel
+## Desplegado en Vercel
 
 El proyecto está desplegado en el siguiente enlace:
 [Secrect Chat]().
