@@ -13,7 +13,7 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
 
   useEffect(() => {
     if (!gotMessages) {
-      divRef.current?.scrollTo({ top: divRef.current.scrollHeight, behavior: 'auto' });
+      divRef.current?.scrollTo({ top: divRef.current.scrollHeight, behavior: 'smooth' });
     }
   }, [gotMessages]);
 
