@@ -148,7 +148,6 @@ function useConversationsCtx() {
 
   return {
     conversations,
-    conversationsClient,
     status,
     createConversation,
     selectedConversation,
