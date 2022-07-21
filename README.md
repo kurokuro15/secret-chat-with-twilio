@@ -1,12 +1,11 @@
 Este es un proyecto [Next.js](https://nextjs.org/) iniciado con [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 # SECRET CHAT with [TWILIO](https://www.twilio.com/referral/xdppiQ)
+Realizado por Reynaldo 'kurokuro15' González y Yhan 'lichOp' Montaño para participar en la hackathon de Julio 2022 de @midudev y Twilio.
 
 ### #HackathonTwilioJulio2022
 
-Este repositorio contiene el proyecto realizado por Reynaldo 'kurokuro15' González y Yhan 'lichOp' Montaño para participar en la hackathon de Julio 2022 de @midudev y Twilio.
-
-Presentamos una aplicación de mensajes "punto a punto" no encriptada.
+Presentamos una aplicación web de conversaciones privadas.
 
 Realizada con Typescript, NextJS, Twilio, Supabase, Tailwind y desplegada en Vercel.
 
@@ -42,9 +41,11 @@ Primero, se ha de crear un proyecto nuevo en supabase, con la siguiente estructu
 
 Tabla profiles
 
-- id: uuid -> auth.uuid // llave foránea al id de los usuarios de la tabla auth
+- id: uuid -> auth.users.uuid // llave foránea al id de los usuarios de la tabla auth
 - username: varchar unique
 - avatar_url: varchar
+
+*Se recomienda activar RLS y añadir políticas de SELECT, INSERT y UPDATE en función del usuario autenticado. Tanto para la tabla profiles como para el bucket*
 
 Se debe crear el siguiente trigger para crear un registro en la tabla profiles cada vez que un usuario se registre. Este script se puede ejecutar en la consola SQL de supabase:
 
@@ -75,7 +76,7 @@ Se debe activar la autenticación por email y por github siguiendo las instrucci
 - [Email](https://supabase.com/docs/guides/auth/auth-email)
 - [GitHub](https://supabase.com/docs/guides/auth/auth-github)
 
-Así mismo, hemos de crear un servicio en [TWILIO](https://www.twilio.com/referral/xdppiQ) y recuperar de este el `ACCOUNT_SID`, `API_KEY`, `API_SECRET` y `SERVICE_SID`.
+Así mismo, hemos de crear un servicio en [TWILIO](https://www.twilio.com/referral/xdppiQ) dentro de "conversations" y recuperar de este el `ACCOUNT_SID`, `API_KEY`, `API_SECRET` y `SERVICE_SID`.
 
 - La API_KEY y su respectivo API_SECRET se pueden crear desde [Crear `API Keys`](https://console.twilio.com/us1/account/keys-credentials/api-keys?frameUrl=%2Fconsole%2Fproject%2Fapi-keys%3Fx-target-region%3Dus1). Debe estar asociada al SERVICE_SID creado anteriormente.
 
@@ -92,6 +93,8 @@ TWILIO_ACCOUNT_SID= <SID de la cuenta de TWILIO>
 TWILIO_API_KEY= <llave de la API de TWILIO>
 TWILIO_API_SECRET= <Secreto|Contraseña de la API de TWILIO>
 TWILIO_SERVICE_SID= <SID del servicio de TWILIO>
+
+NEXT_PUBLIC_APP_URL= <URL completa de donde está desplegada la aplicación (ejemplo: http://localhost:3000/)>
 ```
 
 ### Instalando Dependencias y ejecutando la aplicación
@@ -112,6 +115,6 @@ Abrimos [http://localhost:3000](http://localhost:3000) en el navegador para visi
 ## Desplegado en Vercel
 
 El proyecto está desplegado en el siguiente enlace:
-[Secrect Chat]().
+#### [Secrect Chat](https://secret-chat-with-twilio.vercel.app/).
 
 ### [Vercel](https://vercel.com/)
