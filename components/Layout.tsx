@@ -1,12 +1,15 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
+import FullPageSpinner from './FullPageSpinner';
 import NotificationsContainer from './ui/NotificationsContainer';
 
 function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="h-screen w-screen overflow-auto">
-      {children}
-      <NotificationsContainer />
-      <div id="modalRoot" />
+      <Suspense fallback={<FullPageSpinner />}>
+        {children}
+        <NotificationsContainer />
+        <div id="modalRoot" />
+      </Suspense>
     </div>
   );
 }
