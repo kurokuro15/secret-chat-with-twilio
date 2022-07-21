@@ -27,7 +27,7 @@ export default function ChatInput() {
   };
 
   return (
-    <div className="grow-0 inset-x-0 bottom-0 justify-center">
+    <div className="grow-0 inset-x-0 bottom-0 justify-center z-10 pt-1">
       <form className="flex gap-x-3 h-9" onSubmit={handleSubmit(onSubmit)}>
         <Overlay
           content={
