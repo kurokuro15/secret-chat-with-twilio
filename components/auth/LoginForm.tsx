@@ -32,7 +32,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
     if (!error) {
       setTimeout(() => {
         onSuccess();
-      }, 500);
+      }, 1000);
     }
 
     setError(error);
