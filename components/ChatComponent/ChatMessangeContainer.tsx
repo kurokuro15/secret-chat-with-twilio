@@ -34,7 +34,7 @@ export default function ChatMessageContainer({ body, author, date, avatar }: iMe
                 <span className="relative top-1.5 bottom-auto float-right ml-1.5 px-1">
                   <span
                     className="message-time shrink-0 text-[.75rem] whitespace-nowrap italic text-gray-600"
-                    title={'today'}
+                    title={date.toISOString()}
                   >
                     {timeFormatter.format(date)}
                   </span>
