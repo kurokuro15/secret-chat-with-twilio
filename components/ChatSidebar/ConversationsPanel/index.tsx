@@ -39,7 +39,7 @@ export default function ConversationsPanel() {
 
       <PanelContent className="p-0">
         {status.status === 'loading' && (
-          <Spinner className="w-8 h-8 block mx-auto border-l-purple-500" />
+          <Spinner className="w-8 h-8 block mx-auto mt-3 border-l-purple-500" />
         )}
 
         <ConversationList conversations={conversations} />
