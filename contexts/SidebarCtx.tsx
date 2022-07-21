@@ -27,7 +27,10 @@ function SidebarProvider({ children }: { children: ReactNode }) {
       setIsMobile(window.innerWidth < 1024);
     }
     window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
+  }, []);
 
+  useEffect(() => {
     if (!selectedConversation) {
       setShow(true);
     } else {
@@ -35,8 +38,6 @@ function SidebarProvider({ children }: { children: ReactNode }) {
         setShow(false);
       }
     }
-
-    return () => window.removeEventListener('resize', checkWidth);
   }, [selectedConversation, isMobile]);
 
   return (
