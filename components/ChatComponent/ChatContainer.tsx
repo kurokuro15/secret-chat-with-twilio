@@ -67,7 +67,7 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
   }, [conversation]);
 
   return (
-    <div ref={divRef} className="grow overflow-y-auto snap-y scroll-smooth">
+    <div ref={divRef} className="grow overflow-y-auto snap-y scroll-smooth" tabIndex={0}>
       {messages.map((message) => {
         const avatarUrl: string | null = message.author ? avatars[message.author] ?? null : null;
         const msg: iMessenge = {
