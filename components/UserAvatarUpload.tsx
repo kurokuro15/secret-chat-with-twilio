@@ -27,9 +27,9 @@ export function UserAvatarUpload() {
       await updateUserData({ avatar_url: filePath });
     } catch (error) {
       addNotification({ message: 'Ocurrió un error al subir tu imagen', variant: 'danger' });
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
