@@ -1,6 +1,6 @@
 import { useSidebar } from 'hooks';
 import placeHolder from '../../public/avatar.png';
-import BackIcon from '../icons/BackIcon';
+import MenuIcon from '../icons/MenuIcon';
 import Avatar from '../ui/Avatar';
 import Button from '../ui/Button';
 import StatusComponent, { iHandlerStatus } from './StatusComponent';
@@ -28,7 +28,7 @@ export default function ChatHeader({
           toggleSidebar();
         }}
       >
-        <BackIcon />
+        <MenuIcon className="w-8 h-8" />
       </Button>
       <Button
         variant="transparent-primary"
