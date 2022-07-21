@@ -24,20 +24,17 @@ function SidebarProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     function checkWidth() {
-      setIsMobile(window.innerWidth < 1024);
+      const mobile = window.innerWidth < 1024;
+      setShow(!selectedConversation ? true : !mobile);
+      setIsMobile(mobile);
     }
     window.addEventListener('resize', checkWidth);
+    checkWidth();
     return () => window.removeEventListener('resize', checkWidth);
-  }, []);
+  }, [selectedConversation]);
 
   useEffect(() => {
-    if (!selectedConversation) {
-      setShow(true);
-    } else {
-      if (isMobile) {
-        setShow(false);
-      }
-    }
+    setShow(!selectedConversation ? true : !isMobile);
   }, [selectedConversation, isMobile]);
 
   return (
