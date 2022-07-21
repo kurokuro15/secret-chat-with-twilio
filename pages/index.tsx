@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         />
         <Link href="/chat">
           <a className="px-3 py-2 bg-purple-700 rounded-md mt-5 font-bold hover:bg-purple-600">
-            <span className="text-white">Ir al chat</span>
+            <span className="text-white">Chatear ahora!</span>
           </a>
         </Link>
       </main>

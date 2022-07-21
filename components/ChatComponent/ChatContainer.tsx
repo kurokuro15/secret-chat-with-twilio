@@ -1,4 +1,4 @@
-import { Conversation, Message } from '@twilio/conversations';
+import { Conversation, Message, Paginator } from '@twilio/conversations';
 import { useAuth } from 'hooks';
 import { useEffect, useRef, useState, useTransition } from 'react';
 import getAvatarByUsername from 'services/getAvatarByUsername';
@@ -13,7 +13,7 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
 
   useEffect(() => {
     if (!gotMessages) {
-      divRef.current?.scrollTo({ top: divRef.current.scrollHeight, behavior: 'auto' });
+      divRef.current?.scrollTo({ top: divRef.current.scrollHeight, behavior: 'smooth' });
     }
   }, [gotMessages]);
 
@@ -45,10 +45,34 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
     };
 
     const getMsg = async () => {
-      const paginator = await conversation.getMessages();
-      startSettingMessages(() => {
-        setMessages(paginator.items);
-      });
+      const pageSize = 20;
+      let allMessages: Array<Message> = [];
+
+      const collectMessages = async (paginator: Paginator<Message>) => {
+        try {
+          let end = false;
+          do {
+            const messages = paginator.items;
+            allMessages = [...messages, ...allMessages];
+            if (paginator.hasPrevPage) {
+              paginator = await paginator.prevPage();
+            } else {
+              end = true;
+            }
+          } while (!end);
+          startSettingMessages(() => {
+            setMessages(allMessages);
+          });
+        } catch (error) {
+          console.error(error);
+          return [];
+        }
+      };
+
+      conversation
+        .getMessages(pageSize)
+        .then((messages) => collectMessages(messages))
+        .then().catch((error) => console.error(error));
     };
 
     getAllAvatarUrl(conversation).then((avatarsUrls) => {
@@ -67,7 +91,7 @@ export default function ChatContainer({ conversation }: { conversation: Conversa
   }, [conversation]);
 
   return (
-    <div ref={divRef} className="grow overflow-y-auto snap-y scroll-smooth">
+    <div ref={divRef} className="grow overflow-y-auto snap-y scroll-smooth" tabIndex={0}>
       {messages.map((message) => {
         const avatarUrl: string | null = message.author ? avatars[message.author] ?? null : null;
         const msg: iMessenge = {

@@ -10,7 +10,6 @@ interface ConversationListProps {
 
 function ConversationList({ conversations }: ConversationListProps) {
   const { selectConversation } = useConversations();
-  const { toggleSidebar } = useSidebar();
 
   return (
     <div className="w-full flex flex-col" role="rowgroup">
@@ -24,8 +23,6 @@ function ConversationList({ conversations }: ConversationListProps) {
           <ConversationItem
             onClick={() => {
               selectConversation(conversation);
-              // 1024px comes from tailwindcss lg breakpoint
-              if (window.innerWidth < 1024) toggleSidebar();
             }}
             role="row"
             conversation={conversation}
