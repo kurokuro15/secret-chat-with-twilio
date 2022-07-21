@@ -22,8 +22,9 @@ export default function ChatInput() {
   const { selectedConversation } = useConversations();
 
   const onSubmit = async (values: InputData) => {
-    await selectedConversation?.sendMessage(values.message);
+    const { message } = values;
     reset();
+    await selectedConversation?.sendMessage(message);
   };
 
   return (
