@@ -13,6 +13,7 @@
     "@hookform/resolvers": "2.9.5",
     "@supabase/supabase-js": "1.35.4",
     "@twilio/conversations": "2.1.0",
+    "intersection-observer": "0.12.2",
     "just-throttle": "4.0.1",
     "next": "12.2.0",
     "react": "18.2.0",
