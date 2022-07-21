@@ -3,7 +3,7 @@ import NotificationsContainer from './ui/NotificationsContainer';
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen overflow-auto">
       {children}
       <NotificationsContainer />
       <div id="modalRoot" />
