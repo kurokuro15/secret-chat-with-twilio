@@ -20,14 +20,12 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.33.1",
     "string.prototype.matchall": "4.0.7",
-    "swr": "1.3.0",
     "tailwind-merge": "1.4.0",
     "twilio": "3.78.0",
     "unicode-emoji": "2.3.0",
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@playwright/test": "1.23.2",
     "@types/node": "18.0.3",
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
