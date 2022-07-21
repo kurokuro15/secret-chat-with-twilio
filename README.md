@@ -6,18 +6,23 @@ Este es un proyecto [Next.js](https://nextjs.org/) iniciado con [`create-next-ap
 
 Este repositorio contiene el proyecto realizado por Reynaldo 'kurokuro15' González y Yhan 'lichOp' Montaño para participar en la hackathon de Julio 2022 de @midudev y Twilio.
 
-Presentando una aplicación de mensajes "punto a punto" no encriptada. Permite:
+Presentamos una aplicación de mensajes "punto a punto" no encriptada.
 
-- [x] Registarse e iniciar sesión con GitHub (Auth0) o correo electrónico.
-- [ ] Mensajes encriptados punto a punto seguros.
-- [ ] Recibir notificaciones informando sobre la llegada de un nuevo mensaje.
+Realizada con Typescript, NextJS, Twilio, Supabase, Tailwind y desplegada en Vercel.
+
+Entre sus características destacamos:
 - [x] Crear y eliminar salas de conversaciones (chats) entre grupos de 2 o más personas.
-- [ ] Invitar a quien desee estar a través de su nombre de usuario o su correo electrónico.
-- [ ] Personalizar su avatar así como el avatar de las salas.
-- [x] Saber sí la sala está activa no.
 - [x] Enviar mensajes de texto o emojis.
+- [x] Personalizar su avatar así como el avatar de las salas.
+- [x] Registarse e iniciar sesión con GitHub (Auth0) o correo electrónico.
+- [x] Saber sí la sala está activa o no.
 
-## Desplegar en entorno local
+Este es nuestro primer proyecto con estas tecnologías, hace poco que empezamos en el mundo de la programación de lleno,
+nos hace ilusión esta hackathon así como el hecho de poder 'poner a prueba' nuestro conocimientos y habilidades. 
+
+Gracias por esta oportunidad.
+
+## Desplegarla en un entorno local
 
 ### Descargando el repositorio
 
@@ -63,7 +68,7 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 ```
 
-Se necesita además un bucket de storage público llamado 'avatars', el cual almacenará los avatares de los usuarios: [Create a bucket](https://supabase.com/docs/guides/storage#create-a-bucket)
+Se necesita además un bucket de storage público llamado 'avatars', el cual almacenará los avatares de los usuarios: [Crear un `bucket`](https://supabase.com/docs/guides/storage#create-a-bucket)
 
 Se debe activar la autenticación por email y por github siguiendo las instrucciones de la documentación:
 
@@ -72,7 +77,7 @@ Se debe activar la autenticación por email y por github siguiendo las instrucci
 
 Así mismo, hemos de crear un servicio en [TWILIO](https://www.twilio.com/referral/xdppiQ) y recuperar de este el `ACCOUNT_SID`, `API_KEY`, `API_SECRET` y `SERVICE_SID`.
 
-- La API_KEY y su respectivo API_SECRET se pueden crear desde [Create API Keys](https://console.twilio.com/us1/account/keys-credentials/api-keys?frameUrl=%2Fconsole%2Fproject%2Fapi-keys%3Fx-target-region%3Dus1). Debe estar asociada al SERVICE_SID creado anteriormente.
+- La API_KEY y su respectivo API_SECRET se pueden crear desde [Crear `API Keys`](https://console.twilio.com/us1/account/keys-credentials/api-keys?frameUrl=%2Fconsole%2Fproject%2Fapi-keys%3Fx-target-region%3Dus1). Debe estar asociada al SERVICE_SID creado anteriormente.
 
 ### Inicializando Variables de entorno
 
