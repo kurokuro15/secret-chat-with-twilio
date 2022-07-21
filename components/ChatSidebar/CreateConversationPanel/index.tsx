@@ -114,6 +114,7 @@ export default function CreateConversationPanel() {
                     onClick={() => remove(index)}
                     variant="transparent-danger"
                     className="rounded-full"
+                    type="button"
                   >
                     <CloseIcon />
                   </Button>
