@@ -34,6 +34,7 @@ export default function AvatarInput({
       addNotification({ message: 'Ocurrió un error al subir tu imagen', variant: 'danger' });
     } finally {
       setLoading(false);
+      evt.target.files = null;
     }
   }
 

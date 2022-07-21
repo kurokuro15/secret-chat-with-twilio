@@ -29,6 +29,7 @@ export function UserAvatarUpload() {
       addNotification({ message: 'Ocurrió un error al subir tu imagen', variant: 'danger' });
     } finally {
       setLoading(false);
+      evt.target.files = null;
     }
   }
 
