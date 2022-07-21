@@ -10,16 +10,18 @@ export default function ChatMessageContainer({ body, author, date, avatar }: iMe
   const { user } = useAuth();
   let flex = 'flex-row';
   let color = 'border-gray-100  bg-gray-100';
+  let border = 'rounded-bl-none';
   if (author === user?.username) {
     flex = 'flex-row-reverse';
     color = 'border-purple-100  bg-purple-100';
+    border = 'rounded-br-none'
   }
   const timeFormatter = new Intl.DateTimeFormat('es', { hour: '2-digit', minute: '2-digit' });
   return (
     <div className="mt-1.5 p-1.5 snap-end">
       <div className={`flex ${flex} justify-between`}>
         <div
-          className={`border rounded-xl ${color} min-w-min lg:max-w-md drop-shadow-sm p-1 px-2 max-w-[18rem] shadow-transparent`}
+          className={`border rounded-xl ${border} ${color} min-w-min lg:max-w-md drop-shadow-sm p-1 px-2 max-w-[18rem] shadow-transparent`}
         >
           <div className="gap-2 flex flex-row text-gray-600 items-center">
             <Avatar src={avatar || placeHolder} className="shrink-0 w-5 h-5" />
