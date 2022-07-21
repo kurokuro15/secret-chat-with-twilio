@@ -26,7 +26,7 @@ export default function ChatHeader({
       {isMobile && (
         <Button
           variant="transparent-primary"
-          className="h-full px-5 rounded-none focus:ring-0"
+          className="h-full px-4 rounded-none focus:ring-0"
           onClick={() => {
             selectConversation();
           }}
@@ -36,7 +36,7 @@ export default function ChatHeader({
       )}
       <Button
         variant="transparent-primary"
-        className="flex gap-3 grow min-w-0 items-center justify-between rounded-none py-2 px-4 text-black"
+        className="flex gap-3 grow min-w-0 items-center justify-between rounded-none py-2 pr-4 lg:px-4 text-black"
         onClick={onClick}
       >
         <div className="min-w-0">
