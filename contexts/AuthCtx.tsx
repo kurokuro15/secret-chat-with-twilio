@@ -22,9 +22,12 @@ function useAuthCtx() {
   }, []);
 
   const signInWithGithub = useCallback(async function () {
-    return await supabase.auth.signIn({
-      provider: 'github'
-    });
+    return await supabase.auth.signIn(
+      {
+        provider: 'github'
+      },
+      { redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/redirecting` }
+    );
   }, []);
 
   const signUp = useCallback(async function (credentials: Credentials) {

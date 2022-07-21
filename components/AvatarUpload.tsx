@@ -50,7 +50,7 @@ export default function AvatarInput({
       >
         {loading ? <Spinner /> : <EditIcon className="text-white" />}
       </div>
-      <Avatar src={imgSrc ?? placeholder} className="w-20 h-20" />
+      <Avatar src={imgSrc} className="w-20 h-20" />
       <input
         type="file"
         accept="image/gif,image/jpeg,image/jpg,image/png"

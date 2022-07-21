@@ -1,50 +1,54 @@
 import { useSidebar } from 'hooks';
 import placeHolder from '../../public/avatar.png';
-import BackIcon from '../icons/BackIcon';
+import MenuIcon from '../icons/MenuIcon';
 import Avatar from '../ui/Avatar';
 import Button from '../ui/Button';
 import StatusComponent, { iHandlerStatus } from './StatusComponent';
+import { MouseEvent } from 'react';
 
 export default function ChatHeader({
   title,
   status,
   participantIdentities,
   avatar,
+  onClick,
   ...props
 }: ChatHeaderProps) {
   const { toggleSidebar } = useSidebar();
 
   return (
     <div
-      className=" bg-purple-50 flex justify-between gap-5 min-w-0 items-center rounded-md px-2 py-1 shadow-sm cursor-pointer"
+      className="bg-purple-50 border border-purple-200 flex min-w-0 items-center rounded-md shadow-sm z-10"
       {...props}
     >
-      <div className="flex gap-3 min-w-0 items-center">
-        <div>
-          <Button
-            variant="transparent-primary"
-            className="rounded-full"
-            onClick={(evt) => {
-              evt.stopPropagation();
-              toggleSidebar();
-            }}
-          >
-            <BackIcon />
-          </Button>
-        </div>
+      <Button
+        variant="transparent-primary"
+        className="h-full px-5 rounded-none focus:ring-0"
+        onClick={() => {
+          toggleSidebar();
+        }}
+      >
+        <MenuIcon className="w-8 h-8" />
+      </Button>
+      <Button
+        variant="transparent-primary"
+        className="flex gap-3 grow min-w-0 items-center justify-between rounded-none p-2 text-black"
+        onClick={onClick}
+      >
         <div className="min-w-0">
-          <h2 className="truncate">{title}</h2>
+          <h2 className="truncate text-left">{title}</h2>
           <StatusComponent status={status} participantIdentities={participantIdentities} />
         </div>
-      </div>
-      <Avatar src={avatar || placeHolder} className="w-16 h-16 shrink-0" />
+        <Avatar src={avatar || placeHolder} className="w-16 h-16 shrink-0 shadow-md" />
+      </Button>
     </div>
   );
 }
 
-interface ChatHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ChatHeaderProps {
   title: string;
   status: keyof iHandlerStatus;
   participantIdentities: Array<string>;
   avatar: string;
+  onClick: (evt: MouseEvent<HTMLButtonElement>) => void;
 }
