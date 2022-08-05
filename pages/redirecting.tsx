@@ -8,7 +8,7 @@ export default function Redirecting() {
   useEffect(() => {
     const timerId = setTimeout(() => {
       router.replace('/chat');
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearTimeout(timerId);

@@ -26,7 +26,7 @@ function useAuthCtx() {
       {
         provider: 'github'
       },
-      { redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/redirecting` }
+      { redirectTo: `${window.location.origin}/redirecting` }
     );
   }, []);
 

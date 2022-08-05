@@ -13,7 +13,7 @@ const Login: NextPage = () => {
       <AppLogo className="mx-auto" />
       <h1 className="text-center text-2xl font-bold mb-5">SecretChat - Login</h1>
 
-      <LoginForm onSuccess={() => router.push('/chat')} />
+      <LoginForm onSuccess={() => router.push('/redirecting')} />
 
       <Link href="/signup">
         <a>¿No tienes cuenta? ¡Regístrate ahora!</a>
